@@ -1,0 +1,6 @@
+﻿@using System
+@model Cno.Roca.Web.RocaSite.Models.ErrorVm
+@Html.Raw(@Html.Encode(@Model.Message).Replace(Environment.NewLine, "<br />"))
+
+
+

@@ -1,0 +1,197 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    font-size: .85em;
+    font-family: "Verdana, Segoe UI", Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd !important;
+    -ms-border-radius: 5px;
+    border-radius: 5px;
+    padding: 0 1em 1em 1em !important;
+    margin: 0 0 1em 0 !important;
+}
+
+legend 
+{
+    width: inherit !important;
+    font-size: 1em!important;
+    padding: 0 10px !important;
+    border: 0 !important;
+    font-weight: bold;
+    margin-bottom: 10px !important;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.hidden {
+    display: none;
+}
+
+
+DIV#header {overflow: auto; background-color: #E54A4A; border-bottom: 2px solid #111; color: White; }
+DIV#header DIV.title { font-size: 1.5em; padding-left: .4em;padding-top: 0.4em; font-weight: bold}
+DIV#header DIV.user { font-size: 0.8em; padding-right: .4em; font-weight: bold;float: right; clear: both}
+
+.menu{ background: #C0C0D0;}
+
+div#body{display: table;width: 100%; min-height: 85%; }
+
+DIV#menu {display: table-cell ; background: #DFE8F4; vertical-align: top; padding: .6em; width: 150px}
+DIV#menu A{ font-weight: bold;text-decoration: none; color: inherit;}
+DIV#menu a:visited{color: inherit; } 
+DIV#menu a:hover{text-decoration: underline;}
+.menuroot {font-weight: bold;white-space:nowrap;}
+.menuSection {font-weight: bold;padding-left: 1em;border-bottom: 0.5em; color: #308080; font-size: 0.8em;}
+
+DIV#content {display: table-cell; vertical-align: top; background: #eff1f4; border-left: 2px solid gray; padding: 1em;}
+
+
+DIV#filtros {border-bottom: 1px dotted gray; overflow: auto; padding-bottom: .7em; margin-bottom: .7em; }
+
+
+DIV.tituloGrilla { font-size: 1.5em; padding: .1em; }
+
+
+DIV#filtro1 {float: left; }
+DIV#filtro1b {margin-top: 1em}
+DIV#filtro2 {float: left; padding-left: 7em;}
+DIV#filtro3 {float: left; padding-left: 3em;}
+div#colsFiltro {float: left; }
+div#orderFiltro {float: left; margin-left: 1em;}
+
+DIV#GrillaPanel {clear:both}
+
+DIV#foot {clear: left;  background-color: #E54A4A; border-bottom: 2px solid #111; color: White; font-size: 2em; padding: .4em; }
+
+.noPadding {
+    padding: 0;
+    margin: 0;
+}
+
+.tituloFiltro { font-size: 1em; padding: .1em; }
+.txtFiltro {
+    width: 25em;
+}
+
+table.grilla{
+    border: 2px solid gray;
+    border-collapse: collapse;
+    background: white;
+}
+th.header {
+    background: #557;
+    color: white;
+    font-weight: bold;
+    padding: .2em;
+    padding-left: 0.5em;
+    padding-right: 1em;
+    text-align: left;
+}
+td.celda {
+    padding: .2em;
+    border: 1px solid gray;
+}
+
+select {
+    padding: 3px;
+    width: 15em;
+}
+
+.left-inner-addon {
+    position: relative;
+}
+.left-inner-addon input {
+    padding-left: 30px;    
+}
+.left-inner-addon i {
+    position: absolute;
+    padding: 8px 12px;
+    pointer-events: none;
+}
+
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;    
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 8px 12px;
+    pointer-events: none;
+}
+
+
+.animate.ng-hide-add, .animate.ng-hide-remove {
+  -webkit-transition:all linear 0.5s;
+  -moz-transition:all linear 0.5s;
+  -ms-transition:all linear 0.5s;
+  -o-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+  display:block!important;
+
+}
+
+.animate.ng-hide-add,
+.animate.ng-hide-remove.ng-hide-remove-active {
+  opacity:1;
+}
+
+.animate.ng-hide-add.ng-hide-add-active,
+.animate.ng-hide-remove {
+  opacity:0;
+}

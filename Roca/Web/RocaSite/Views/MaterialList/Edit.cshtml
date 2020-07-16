@@ -1,0 +1,68 @@
+﻿<div>
+    <form name="mlForm" novalidate  ng-submit="mlForm.$setPristine();submit();" >  
+        <div class="col-lg-3" >
+            <div class="form-group" ng-class="{'has-error': mlForm.DocNumber.$invalid}">       
+                <label class="control-label small" for="DocNumber">Documento</label>
+                <input class="form-control input-sm" ng-model="Model.Ml.DocNumber" ng-readonly="!Model.New" name="DocNumber" required/>
+            </div>
+
+            <div class="form-group" ng-class="{'has-error': mlForm.Title.$invalid}">       
+                <label class="control-label small" for="Title">Titulo</label>
+                <input class="form-control input-sm" ng-model="Model.Ml.Title" name="Title" required/>
+            </div>
+            
+            <div class="form-group">       
+                <label class="control-label small" for="ProjectName">Proyecto</label>
+                <input class="form-control input-sm" ng-model="Model.Ml.ProjectName" name="ProjectName" ng-readonly="true"/>
+            </div>   
+            
+            <div class="form-group" ng-class="{'has-error': mlForm.Revision.$invalid}">       
+                <label class="control-label small" for="Revision">Revision</label>
+                <input class="form-control input-sm" ng-model="Model.Ml.Revision" name="Revision" required/>
+            </div>  
+            
+            <div class="form-group" ng-class="{'has-error': mlForm.Specialty.$invalid || Model.Ml.SpecialtyId <= 0}">       
+                <label class="control-label small" for="Specialty">Especialidad</label>
+                <select ng-if="Model.New" class="form-control input-sm" name="Specialty" ng-model="Model.Ml.SpecialtyId" ng-options="sp.Id as sp.Name for sp in Model.Specialties" required>
+                    <option value="">-- Seleccione una Especialidad --</option>
+                </select>
+                <input ng-if="!Model.New" class="form-control input-sm" ng-model="Model.Ml.SpecialtyName" name="Specialty" ng-readonly="true"/>
+            </div>
+            
+            <div class="form-group">       
+                <label class="control-label small" for="StatusDescription">Estado</label>
+                <input class="form-control input-sm" ng-model="Model.Ml.StatusDescription" name="StatusDescription" ng-readonly="true"/>
+            </div> 
+        </div>
+
+        <div class="col-lg-3">
+            <div class="form-group">       
+                <label class="control-label small" for="CreatorShowName">Autor</label>
+                <input class="form-control input-sm" ng-model="Model.Ml.CreatorShowName" name="CreatorShowName" ng-readonly="true"/>
+            </div>
+            
+            <div class="form-group" ng-class="{'has-error': mlForm.Revisor.$invalid}">       
+                <label class="control-label small" for="Revisor">Revisor</label>
+                <select  class="form-control input-sm" name="Revisor" ng-model="Model.Ml.RevisorId" ng-options="u.Id as u.ShowName for u in Model.Users" required>
+                    <option value="">-- Seleccione un Revisor --</option>
+                </select>
+            </div>   
+            
+            <div class="form-group" ng-class="{'has-error': mlForm.Purpose.$invalid}">       
+                <label class="control-label small" for="Purpose">Proposito</label>
+                <select  class="form-control input-sm" name="Purpose" ng-model="Model.Ml.Purpose" ng-options="p for p in Model.Purposes" required>
+                    <option value="">-- Seleccione un Proposito --</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit" ng-disabled="!mlForm.$valid || !mlForm.$dirty">Salvar</button>
+                <p style="color: green; font-weight: bold;" ng-show="Model.Saved && !mlForm.$dirty">Salvada!</p>
+            </div> 
+            <div class="form-group">
+                <div ng-if="!Model.New" ng-include="'MaterialList/ActionsPanel'" ng-controller="MlActionsPanelController" onload="Model.New ? (Mode = 'New') : (Mode = 'Edit'); Id = Model.id;"></div>
+            </div>               
+        </div>
+    </form>
+</div>
+

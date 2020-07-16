@@ -1,0 +1,45 @@
+﻿<div class="container-fluid">
+    <div class="row form-group">
+        <div class="col-md-2">
+            <label class="control-label small" for="fromDate">Desde</label>
+            <p class="input-group">
+                <input type="text" name="fromDate" class="form-control input-sm" ng-model="Model.Filter.FromDate" tabindex="1" ng-change="filterChanged()"
+                       datepicker-popup="yyyy-MM-dd" show-weeks="false" is-open="Model.FromDatePickerOpened"
+                       close-text="Cerrar" current-text="Hoy" clear-text="Borrar" toggle-weeks-text="Semanas" close-text="Aceptar" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="openDatePicker($event, 'FromDatePickerOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label small" for="toDate">Hasta</label>
+            <p class="input-group">
+                <input type="text" name="fromDate" class="form-control input-sm" ng-model="Model.Filter.ToDate" tabindex="2" ng-change="filterChanged()"
+                       datepicker-popup="yyyy-MM-dd" show-weeks="false" is-open="Model.ToDatePickerOpened"
+                       close-text="Cerrar" current-text="Hoy" clear-text="Borrar" toggle-weeks-text="Semanas" close-text="Aceptar" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default btn-sm" ng-click="openDatePicker($event, 'ToDatePickerOpened')"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="row  form-group" style="width: 900px;">
+        <div style="float: right; padding-top: 10px;">
+            <label class="control-label small">Todas</label>
+            <input type="checkbox" ng-model="Model.CloseAll" ui-indeterminate="Model.SomeClosed" ng-change="closeAllChanged()"/>
+        </div>
+        <div style="float: left;">
+            <button type="button" class="btn btn-primary" ng-click="save()">Salvar</button>
+            <span style="color: green; font-weight: bold;" ng-show="Model.Saved">Salvada!</span>
+        </div>
+    </div>
+    <div class="row">
+        <div id="grid" style="width: 900px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (function () {
+        Roca.fillParentHeight('grid', '70%');
+    })();
+</script>

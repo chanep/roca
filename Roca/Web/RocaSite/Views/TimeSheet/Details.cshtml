@@ -1,0 +1,297 @@
+﻿<style>
+    .input-sm {
+        height: 25px;
+        padding: 1px 8px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+    select.input-sm {
+        height: 25px;
+        line-height: 25px;
+        padding: 1px 0px 1px 6px;
+    }
+    .btn-sm,
+    .btn-group-sm > .btn {
+        padding: 3px 10px 2px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+    .headerLabel {
+        float: left;
+        padding-right: 10px;
+        text-align: right;
+        width: 260px
+    }
+    .headerInput {
+        float: left;
+        padding-right: 5px;
+        width: 180px
+    }
+    .itemField {
+        float: left;
+        padding-right: 5px;
+    }
+
+    .ifHours {
+        width: 80px;
+        padding-left: 20px;
+    }
+    .ifDocType {
+        width: 60px;
+    }
+    .ifProject {
+        width: 100px;
+        margin-right: 5px;
+    }
+    .ifSubproject {
+        width: 100px;
+        margin-right: 15px;
+        min-height: 1px;
+    }
+    .ifTask {
+        width: 500px;
+    }
+    div.ifDocNumber {
+        width: 250px;
+    }
+    div.ifDocTitle {
+        width: 350px;
+    }    
+    .resultLabel {
+        float: left;
+        width: 320px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #007070;
+        font-style: italic;
+    }
+    .resultValue {
+        float: left;
+        width: 50px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #007070;
+        font-style: italic;
+    }
+    .red {
+        color: #ff0000;
+    }
+    div.division {
+        width: 1000px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    i.iconHelp {
+        cursor: pointer;
+        float: right;
+    }
+    i.on {
+        color: #26ba48;
+    }
+    i.off {
+        color: #1a653a;
+    }
+    
+    
+</style>
+<form name="tsForm" novalidate>
+    <div class="container-fluid">
+        <div class="row form-group">
+            <div class="headerLabel">
+                <label class="control-label small">Disciplina</label>
+            </div>
+            <div class="headerInput">
+                <select class="form-control input-sm" ng-model="Model.TimeSheet.SpecialtyId" tabindex="1" ng-disabled="!canModify()"
+                        ng-options="s.Id as s.Name for s in Model.Options.Specialties" ng-change="specialtyChanged()"></select>
+            </div>
+            <div style="float: left; width: 100px;">
+                <i class="glyphicon glyphicon-question-sign iconHelp" ng-class="{'on': Model.showHelp , 'off': !Model.showHelp}" title="Activar/Desactivar Ayuda" ng-click="toogleHelp()"></i> 
+            </div>
+        </div>
+        <div class="row form-group"  ng-class="{'has-error': tsForm.leader.$invalid}">
+            <div class="headerLabel">
+                <label class="control-label small">Lider</label>
+            </div>
+            <div class="headerInput">
+                <select class="form-control input-sm" name="leader" tabindex="2"
+                        popover-placement="right" popover-title="{{Model.TimeSheetHelpTitle}}" popover="{{Model.LeaderHelp}}" popover-trigger="mouseenter"
+                        ng-model="Model.TimeSheet.LeaderId" ng-options="u.Id as u.FullName for u in Model.Options.Leaders | orderBy:'FullName'" ng-disabled="!canModify()" required>
+                    <option value="">-- Seleccione un Lider --</option>
+                </select>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="headerLabel">
+                <label class="control-label small">Nombre y Apellido</label>
+            </div>
+            <div class="headerInput">
+                <input class="form-control input-sm" ng-model="Model.TimeSheet.UserFullName" name="user" ng-readonly="true" />
+            </div>
+        </div>
+        <div class="row form-group" ng-class="{'has-error': !isControlDateValid()}">
+            <div class="headerLabel">
+                <label class="control-label small">Fecha de Control</label>
+            </div>
+            <div class="headerInput">
+                <p class="input-group"
+                   popover-placement="right" popover-title="{{Model.TimeSheetHelpTitle}}" popover="{{Model.DateHelp}}" popover-trigger="mouseenter">
+                    <input type="text" name="controlDate" class="form-control input-sm" ng-model="Model.TimeSheet.ControlDateDate" tabindex="3" ng-change="dateChanged()" ng-disabled="!canModifyControlDate()"
+                           required date-disabled="disabledDays(date, mode)" datepicker-popup="yyyy-MM-dd" show-weeks="false" is-open="Model.DatePickerOpened"
+                           close-text="Cerrar" current-text="Hoy" clear-text="Borrar" toggle-weeks-text="Semanas" close-text="Aceptar" />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default btn-sm" ng-click="openDatePicker($event)" ng-disabled="!canModifyControlDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+
+        
+        <div class="row division">
+        </div>
+
+        <div class="row">
+            <div class="itemField ifProject" style="text-align: center;">
+                <label class="control-label small">Proyecto</label>
+            </div>
+            <div class="itemField ifSubproject" style="text-align: center;">
+                <label class="control-label small">Subproyecto</label>
+            </div>
+            <div class="itemField ifDocType" style="text-align: center;">
+                <label class="control-label small">TipoDoc</label>
+            </div>
+            <div class="itemField ifDocNumber" style="text-align: center;">
+                <label class="control-label small">Codigo de Documento</label>
+            </div>
+            <div class="itemField ifDocTitle" style="text-align: center;">
+                <label class="control-label small">Titulo</label>
+            </div>
+            <div class="itemField ifHours" style="text-align: center;">
+                <label class="control-label small">HH</label>
+            </div>
+        </div>
+        <div class="row form-group" ng-repeat="item in getDocItems()" ng-class="{'has-success': isItemAndHourValid(item)}">
+            <ng-form name="docItemForm">
+                <div class="itemField ifProject">
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 4}}"
+                            popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocProjectHelp}}" popover-trigger="mouseenter"
+                            ng-model="item.SubprojectParentId" ng-options="p.Id as p.ShortName for p in Model.Options.Projects" ng-change="itemProjectChanged(item)"></select>
+                </div>
+                <div class="itemField ifSubproject">
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 5}}"
+                            popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocProjectHelp}}" popover-trigger="mouseenter"
+                            ng-show="subprojectVisible(item)" ng-model="item.SubprojectId" ng-options="p.Id as p.ShortName for p in item.Subprojects" ng-change="itemSubprojectChanged(item)"></select>
+                </div>
+                <div class="itemField ifDocType">
+                    <select class="form-control input-sm" ng-model="item.Document.TypeId" ng-disabled="!isProjectValid(item)" tabindex="{{$index*6 + 6}}" ng-options="t.Id as t.Code for t in Model.Options.DocTypes | orderBy:'Code'" ng-change="docItemChanged(item, 'TypeId')"></select>
+                </div>
+                <div class="itemField ifDocNumber">
+                    <input class="form-control input-sm" ng-model="item.Document.DocNumber" ng-disabled="!isProjectValid(item)" name="docNumber" tabindex="{{$index*6 + 7}}"
+                           popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocHelp}}" popover-trigger="mouseenter"
+                           data-typeahead="term.value for term in getAutosuggestDoc(item, 'DocNumber') | filter:$viewValue"
+                           data-typeahead-on-select="docItemChanged(item, 'DocNumber')" ng-change="docItemChanged(item, 'DocNumber')" data-typeahead-wait-ms="250" />
+                </div>
+                <div class="itemField ifDocTitle">
+                    <input class="form-control input-sm" ng-model="item.Document.Title" ng-disabled="!isProjectValid(item)" name="title" tabindex="{{$index*6 + 8}}"
+                           popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocHelp}}" popover-trigger="mouseenter"
+                           data-typeahead=" term.value for term in getAutosuggestDoc(item, 'Title' ) | filter:$viewValue"
+                           data-typeahead-on-select="docItemChanged(item, 'Title')" ng-change="docItemChanged(item, 'Title')" data-typeahead-wait-ms="250" />
+                </div>
+                <div class="itemField ifHours" ng-class="{'has-error': docItemForm.hours.$invalid}">
+                    <input class="form-control input-sm" ng-model="item.Hours" ng-disabled="!isItemValid(item)"
+                           tabindex="{{$index*6 + 9}}" name="hours" type="number" max="40" min="0" ui-validate="'isHourValid($value)'" />
+                </div>
+                <div ng-show="canModify()" class="itemField">
+                    <i style="cursor: pointer; color: #a00; margin-top:5px; margin-left: 5px;" class="glyphicon glyphicon-remove" title="Eliminar" ng-click="deleteItem(item)"></i>
+                </div>
+            </ng-form>
+        </div>
+        <div ng-show="canModify()" class="row form-group">
+            <i style="cursor: pointer; color: #2d6ba4;" class="glyphicon glyphicon-plus" title="Agregar" ng-click="addEmptyDoc()"></i>
+        </div>
+
+        
+        <div class="row division">
+        </div>  
+
+        <div class="row">
+            <div class="itemField ifProject" style="text-align: center;">
+                <label class="control-label small">Proyecto</label>
+            </div>
+            <div class="itemField ifSubproject" style="text-align: center;">
+                <label class="control-label small">Subproyecto</label>
+            </div>
+            <div class="itemField ifTask" style="text-align: center;">
+                <label class="control-label small">Actividades</label>
+            </div>
+            <div class="itemField ifHours" style="text-align: center;">
+                <label class="control-label small">HH</label>
+            </div>
+        </div>
+        <div class="row form-group" ng-repeat="item in getTaskItems()" ng-class="{'has-success': isItemAndHourValid(item)}">
+            <ng-form name="taskItemForm">
+                <div class="itemField ifProject">
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 4}}"
+                            popover-placement="top" popover-title="{{Model.TaskHelpTitle}}" popover="{{Model.TaskProjectHelp}}" popover-trigger="mouseenter"
+                            ng-model="item.SubprojectParentId" ng-options="p.Id as p.ShortName for p in Model.Options.Projects" ng-change="itemProjectChanged(item)"></select>
+                </div>
+                <div class="itemField ifSubproject">
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 5}}"
+                            popover-placement="top" popover-title="{{Model.TaskHelpTitle}}" popover="{{Model.TaskProjectHelp}}" popover-trigger="mouseenter"
+                            ng-show="subprojectVisible(item)" ng-model="item.SubprojectId" ng-options="p.Id as p.ShortName for p in item.Subprojects" ng-change="itemSubprojectChanged(item)"></select>
+                </div>
+                <div class="itemField ifTask">
+                    <select class="form-control input-sm" ng-model="item.TaskId" ng-disabled="!isProjectValid(item)" tabindex="{{(getDocItems().length*6)+($index*4) + 6}}" ng-options="t.Id as t.Value for t in Model.Options.Tasks | orderBy:'Id'"></select>
+                </div>
+                <div class="itemField ifHours" ng-class="{'has-error': taskItemForm.hours.$invalid}">
+                    <input class="form-control input-sm" ng-model="item.Hours" ng-disabled="!isItemValid(item)" tabindex="{{(getDocItems().length*6)+($index*4) + 7}}" name="hours" type="number" max="40" min="0" ui-validate="'isHourValid($value)'" />
+                </div>
+                <div ng-show="canModify()" class="itemField">
+                    <i style="cursor: pointer; color: #a00; margin-top: 5px; margin-left: 5px;" class="glyphicon glyphicon-remove" title="Eliminar" ng-click="deleteItem(item)"></i>
+                </div>
+            </ng-form>
+        </div>
+        <div ng-show ="canModify()" class="row form-group">
+            <i style="cursor: pointer; color: #2d6ba4;" class="glyphicon glyphicon-plus" title="Agregar" ng-click="addEmptyTask()"></i>
+        </div>
+        
+        <div class="row division">
+        </div>  
+        
+        <div class="row">
+            <div style="float: left; width: 400px;">
+                <div class="container-fluid">
+                    <div class="row form-group">
+                        <div class="resultLabel">HORAS DE EJECUCION DOCUMENTOS</div>
+                        <div class="resultValue">{{getTotalDocHours()}}</div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="resultLabel">HORAS DE ACTIVIDADES</div>
+                        <div class="resultValue">{{getTotalTaskHours()}}</div>
+                    </div>
+                    <div class="row form-group" >
+                        <div class="resultLabel" ng-class="{'red': getTotalHours() > 40}">HORAS TOTALES</div>
+                        <div class="resultValue" ng-class="{'red': getTotalHours() > 40}">{{getTotalHours()}}</div>
+                    </div>
+                </div>
+            </div>
+            <div ng-show="canModify()" style="float: left; width: 400px;">
+                <span style="display: inline-block;"
+                      popover-placement="top" popover-title="{{Model.SaveHelpTitle}}" popover="{{Model.SaveHelp}}" popover-trigger="mouseenter">
+                    <button type="button" ng-click="submit()"class="btn btn-primary" ng-disabled="!isTimeSheetValid()">Salvar</button>
+                </span>               
+                <span style="display: inline-block;"
+                      popover-placement="right" popover-title="{{Model.CopyHelpTitle}}" popover="{{Model.CopyHelp}}" popover-trigger="mouseenter">
+                    <button type="button" class="btn btn-default" ng-click="copyFromPrevious()" ng-disabled="!canCopyFromPrevious()">Copiar ultima planilla</button>
+                </span>    
+                <p style="color: green; font-weight: bold;" ng-show="Model.Saved && !tsForm.$dirty && !docItemForm.$dirty && !taskItemForm.$dirty">Salvada!</p>       
+            </div>
+            <div ng-show="!canModify()" style="float: left; width: 400px;">
+                <i style="color: #a00;" class="glyphicon glyphicon-lock" title="Planilla no editable"></i>
+            </div>
+        </div>  
+
+    </div>
+
+</form>

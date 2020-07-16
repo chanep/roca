@@ -1,0 +1,6 @@
+﻿<div>
+    <label class="fieldLbl">Proyecto: </label>
+    <select ng-model="Model.Project" ng-options="p as p.Name for p in Model.Projects" ng-change="projectChanged()">
+        <option value="">-- Seleccione un Proyecto --</option>
+    </select>
+</div>

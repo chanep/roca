@@ -1,0 +1,16 @@
+﻿<div>            
+    <a class="btn btn-default" ng-if="Mode=='View'" href="#/MaterialList/Edit/{{Id}}">Editar</a>    
+    
+    <a class="btn btn-default" ng-if="Mode=='View'" href="#/MaterialList/ItemList/{{Id}}/View">Ver Items</a>
+    
+    <a class="btn btn-default" ng-if="Mode=='View' || Mode=='Edit'" href="#/MaterialList/ItemList/{{Id}}/Edit">Editar Items</a>
+    
+    <a class="btn btn-default" ng-if="Mode=='Edit'" ng-click="confirmIssue()">Emitir</a>
+    
+    <a class="btn btn-default" ng-if="Mode=='Edit'" ng-click="confirmNewRevision()">Nueva Revision</a>
+    
+    <a class="btn btn-default" ng-if="Mode=='View' || Mode=='Edit'" href="#/MaterialList/RevisionHistory/{{Id}}">Revisiones Hist.</a>
+
+    <a class="btn btn-default" ng-if="Mode=='Edit'" ng-click="confirmDelete()">Eliminar</a>
+    @*Id: {{Id}}, Mode: {{Mode}}*@
+</div>

@@ -1,0 +1,31 @@
+﻿<div ui-view="header">
+    Header
+</div>
+<div ng-if="Model.EditMode" id="divMaterials" ng-show="Model.showMaterials" class="animate" data-container-width="95%">
+    <i style="float: right; cursor: pointer;" class="glyphicon glyphicon-remove-circle" ng-click="Model.showMaterials = false"></i>
+    <fieldset style="padding-bottom: 10px; padding-right: 20px; border-radius: 5px;">
+        <legend>Seleccionar Material</legend>
+        <div ui-view="materials" style="height: 400px;" data-container-height="400px">
+            Materials
+        </div>
+    </fieldset>
+</div>
+<div id="gridHeader" style="overflow: auto;">
+    <div class="gridTitle">
+        Items
+    </div> 
+    <div style="float: right; padding-bottom: 5px;">
+        <button ng-show="Model.EditMode" class="btn btn-primary" ng-click="Model.showMaterials = true;">Agregar</button>
+    </div>   
+</div>
+<div id="itemGrid" class="ngGridDiv" style="height:400px;" ng-grid="Model.gridOptions">
+</div> 
+<script type="text/javascript">
+    (function () {
+        Roca.setWidth('itemGrid', '95%');
+        var x = $('#itemGrid').width();
+        $('#divMaterials').width(x);
+        $('#gridHeader').width(x);
+    })();    
+</script>
+

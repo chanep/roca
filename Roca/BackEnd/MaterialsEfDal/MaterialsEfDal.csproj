@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43CE5672-DAF9-4E85-BBD9-D3B500D0FC27}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cno.Roca.BackEnd.Materials.EfDal</RootNamespace>
+    <AssemblyName>MaterialsEfDal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EfGenericRepository.cs" />
+    <Compile Include="FilteredDbSet.cs" />
+    <Compile Include="Mappings\DocumentMap.cs" />
+    <Compile Include="Mappings\EiMaterialDetailsMap.cs" />
+    <Compile Include="Mappings\EiMaterialMap.cs" />
+    <Compile Include="Mappings\LookUpMap.cs" />
+    <Compile Include="Mappings\MaterialListMap.cs" />
+    <Compile Include="Mappings\MaterialMap.cs" />
+    <Compile Include="Mappings\MlItemMap.cs" />
+    <Compile Include="Mappings\PMaterialMap.cs" />
+    <Compile Include="Mappings\ProjectMap.cs" />
+    <Compile Include="Mappings\SpecialtyMap.cs" />
+    <Compile Include="Mappings\TaggableAttributeMap.cs" />
+    <Compile Include="Mappings\TaggableTypeMap.cs" />
+    <Compile Include="Mappings\TimeSheetItemMap.cs" />
+    <Compile Include="Mappings\TimeSheetMap.cs" />
+    <Compile Include="Mappings\UnitMap.cs" />
+    <Compile Include="Mappings\UserMap.cs" />
+    <Compile Include="MaterialListRepository.cs" />
+    <Compile Include="MaterialRepository.cs" />
+    <Compile Include="ProjectRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RocaContext.cs" />
+    <Compile Include="RocaUow.cs" />
+    <Compile Include="TaggableTypeRepository.cs" />
+    <Compile Include="TimeSheetRepository.cs" />
+    <Compile Include="UserRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoreData\CoreData.csproj">
+      <Project>{303527C5-AB5E-4A49-85EA-0DBD9F2AAB95}</Project>
+      <Name>CoreData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MaterialsBL\MaterialsBL.csproj">
+      <Project>{8674056C-B851-48AB-BFCA-45C6D058E289}</Project>
+      <Name>MaterialsBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MaterialsData\MaterialsData.csproj">
+      <Project>{AC4B11B4-7498-4268-9DB4-4B64B2221DD8}</Project>
+      <Name>MaterialsData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

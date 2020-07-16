@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D0D4172B-4BF6-4C4D-910D-12A274779C6D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cno.Roca.BackEnd.Tests.Materials</RootNamespace>
+    <AssemblyName>MaterialsTest</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Clutch, Version=1.0.5186.26482, Culture=neutral, PublicKeyToken=3f1ee76c0d32d23b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Clutch.1.0.5186.26482\lib\net40\Clutch.dll</HintPath>
+    </Reference>
+    <Reference Include="Clutch.Diagnostics.EntityFramework, Version=1.0.5186.27187, Culture=neutral, PublicKeyToken=3f1ee76c0d32d23b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Clutch.Diagnostics.EntityFramework.1.0.5186.27187\lib\net40\Clutch.Diagnostics.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseTest.cs" />
+    <Compile Include="EfListener.cs" />
+    <Compile Include="Repositories\MaterialListRepositoryTest.cs" />
+    <Compile Include="Repositories\MaterialRepositoryTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TaggableTypeRepositoryTest.cs" />
+    <Compile Include="Services\CommonServiceTest.cs" />
+    <Compile Include="Services\MaterialListServiceTest.cs" />
+    <Compile Include="Services\MaterialServiceTest.cs" />
+    <Compile Include="Services\TaggableTypeServiceTest.cs" />
+    <Compile Include="Services\TimeSheetServiceTest.cs" />
+    <Compile Include="TestHelper.cs" />
+    <Compile Include="Repositories\UserRepositoryTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\..\Config\ConnString.config">
+      <Link>ConnString.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CoreData\CoreData.csproj">
+      <Project>{303527C5-AB5E-4A49-85EA-0DBD9F2AAB95}</Project>
+      <Name>CoreData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Core.csproj">
+      <Project>{8B971CD3-4D90-42A9-8BFF-C8D49F7EBA4C}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MaterialsBL\MaterialsBL.csproj">
+      <Project>{8674056C-B851-48AB-BFCA-45C6D058E289}</Project>
+      <Name>MaterialsBL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MaterialsData\MaterialsData.csproj">
+      <Project>{AC4B11B4-7498-4268-9DB4-4B64B2221DD8}</Project>
+      <Name>MaterialsData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\MaterialsEfDal\MaterialsEfDal.csproj">
+      <Project>{43ce5672-daf9-4e85-bbd9-d3b500d0fc27}</Project>
+      <Name>MaterialsEfDal</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

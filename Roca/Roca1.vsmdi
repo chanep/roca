@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestLists xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestList name="CoomonServiceTest" id="2f198920-a358-49f7-908c-21c48a989ad0" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="fa8a175e-4ce5-49c8-e1a7-9bbecc1a8f3e" name="GetDocumentsBySpecialtyTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="2503db96-36ed-4d3a-9e9a-3574fcbedd3c" name="GetAllRootProjectsTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="48c25362-2f1f-5ce7-38ce-d62b6f927126" name="GetDocumentsByFilterWithAccentsTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="b332cd0d-ce00-8a60-42e7-f9980582e3b4" name="GetUsersByRoleTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="01cd5085-357d-9a0f-e711-a15404dbb4b6" name="GetDocumentsByFilterTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="DbGeneratorTest" id="420e5282-c03e-4d04-bd3c-045e097a1ab9" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="6720e2df-808d-5420-88a2-ae83feef63eb" name="DeleteTimeSheetTestData" storage="web\rocasite.tests\bin\debug\rocasite.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="ccb13b03-0927-80e5-41ba-a2dd2c7b9c0b" name="DeleteTestDataTest" storage="web\rocasite.tests\bin\debug\rocasite.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="594e238c-1d82-5258-0958-8a1f85afdc51" name="CreateTestDataTest" storage="web\rocasite.tests\bin\debug\rocasite.tests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="Lists of Tests" id="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <RunConfiguration id="37a4b4fb-c6e8-460f-b977-ca26ddc587e0" name="Local" storage="local.testsettings" type="Microsoft.VisualStudio.TestTools.Common.TestRunConfiguration, Microsoft.VisualStudio.QualityTools.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestList>
+  <TestList name="TimeSheetTest" id="978a7be6-d3e7-424f-b89a-6a3c4870bdeb" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="a2e1f50c-4474-4781-f91a-b621a9ea34d9" name="AddTiemSheetTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="46f7e503-7b6b-2d54-d85d-e82e22717a35" name="GetAllUserLastTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="84ed095a-9836-1502-407e-2d141e058558" name="SaveTimeSheetItemsTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="abd80f1b-ea5a-9b78-e382-87f63f6472d9" name="GetDefaultersTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="701cd271-c6e1-b1b8-94f2-526ca3c65eed" name="OverwriteTimeSheetItemsTest" storage="backend\tests\materialstest\bin\debug\materialstest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+  <TestList name="AutoplantTest" id="fad3953a-b681-4b76-9ca0-d62f7f12b335" parentListId="8c43106b-9dc1-4907-a29f-aa66a61bf5b6">
+    <TestLinks>
+      <TestLink id="264a074a-7848-b857-e2ee-094987ed0f20" name="GetProjects" storage="backend\tests\autoplanttest\bin\debug\autoplanttest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="dbfa1b0a-3922-64fe-5bad-59a3aa3e6071" name="GetMaterialsByLine" storage="backend\tests\autoplanttest\bin\debug\autoplanttest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+      <TestLink id="7b426db7-53b5-5a14-93f7-4c6b500cba8b" name="EnumTest" storage="backend\tests\autoplanttest\bin\debug\autoplanttest.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    </TestLinks>
+  </TestList>
+</TestLists>

@@ -1,0 +1,53 @@
+﻿@model Cno.Roca.BackEnd.Materials.Data.Users.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <base href="@Url.Content("~/")" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/themes/base/css")
+    @Styles.Render("~/Content/bootstrap")
+    @Scripts.Render("~/bundles/json")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/roca")
+    @* para traer el locale correspondiente al idioma del browser, usar javascript navigator.language  *@
+    <script src="Scripts/i18n/angular-locale_es-ar.js"></script>
+</head>
+<body ng-app="app">
+    <div id="header">
+        <div id="title" class="title">{{RootModel.Title}}</div>
+        <div class="user">@Model.LongUserName</div>
+    </div>
+    <div id="body">
+        <div id="menu">
+            @{
+                Html.RenderPartial("Menu", Model);
+            }
+        </div>
+        <div id="content" style="width: 100%; height: 100%;">
+            <div ui-view style="width: 100%; height: 100%;">
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+    Roca.fillWindowHeight();
+</script>
+
+
+
+
+
+
+

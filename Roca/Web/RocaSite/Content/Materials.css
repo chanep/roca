@@ -1,0 +1,113 @@
+﻿/* SlickGrid */
+.GrillaHeader {
+    color: black!important;
+    font-size: 0.8em!important;
+    font-weight: bolder!important; 
+    
+}
+.GrillaCell 
+{
+    font-size: 0.8em!important;
+}
+
+.ngGridHeader {
+    color: black;
+    font-size:0.9em;
+    font-weight:bolder;
+}
+.ngGridCell 
+{
+    font-size: 0.9em;
+    border-bottom: 1px solid rgb(212,212,212);
+}
+
+.ngGridDiv {
+    border: 1px solid #000; 
+}
+
+.csv-data-link-span {
+    font-weight: bold;
+}
+
+
+div#mlDetails{ overflow: auto;}
+div#mlDetails1 { float: left;}
+div#mlDetails2 { float: left;padding-left: 20px;}
+
+div#mlItemList{ overflow: auto;}
+div#grid{ clear: both; width:95%; height: 500px; border: 1px solid #000}
+
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+A.actionLink {
+    color: rgb(16, 16, 199); 
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 0.9em;
+} 
+
+
+A.cellActionLink {
+    color: rgb(16, 16, 199)!important; 
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 0.9em;
+} 
+
+A.partialLoad
+{
+} 
+
+A.dialog
+{
+} 
+
+.gridTitle 
+{
+    color: #006060;
+    float: left;
+    font-weight: bold;
+    font-size: 1.2em; 
+    padding: .1em;
+}
+
+.fieldLbl 
+{
+    color: #006060;
+    font-weight: normal;
+    font-size: 0.9em; 
+    padding: .1em;
+}
+
+.fieldTb {
+    width: 25em;
+}
+
+.fieldDdl {
+    width: 15em;
+}
+
+.fieldTxt {
+    font-weight: bold;
+}
+
+.fieldsets {
+    border-radius: 5px;
+    margin: 0;
+}
+
+legend {
+    color: #006060;
+    font-weight: bold;
+    font-size: 0.85em; 
+    padding: .1em;
+}
+
+[class^="slickgrid_"],
+[class^="slickgrid_"] div {
+  -webkit-box-sizing: content-box; 
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}

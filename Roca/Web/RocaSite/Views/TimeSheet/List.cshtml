@@ -1,0 +1,21 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-2 form-group">
+            <label class="control-label small">Persona</label>
+            <select class="form-control input-sm" ng-model="Model.Filter.UserId" ng-options="u.Id as u.FullName for u in Model.Options.Users" ng-change="filterChanged()"></select>
+        </div>  
+        <div class="col-lg-2 form-group">
+            <label class="control-label small">Disciplina</label>
+            <select class="form-control input-sm" ng-model="Model.Filter.SpecialtyId" ng-options="s.Id as s.Name for s in Model.Options.Specialties" ng-change="filterChanged()"></select>
+        </div> 
+    </div>
+    <div class="row">
+        <div id="grid" style="width: 900px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions">
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    (function () {
+        Roca.fillParentHeight('grid', '85%');
+    })();
+</script>

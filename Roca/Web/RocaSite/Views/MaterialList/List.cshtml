@@ -1,0 +1,17 @@
+﻿<div id="gridHeader" style="overflow: auto;">
+    <div class="gridTitle">
+        Listas de Materiales
+    </div>
+    <div style="float: right;margin-bottom: 5px;">
+        <a class="btn btn-primary" href='#/MaterialList/New'>Nueva</a>
+    </div>
+</div>
+<div id="mlListGrid" style="height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions">
+</div>
+<script type="text/javascript">
+    (function () {
+        Roca.setWidth('mlListGrid', '95%');
+        var x = $('#mlListGrid').width();
+        $('#gridHeader').width(x);  
+    })();    
+</script>

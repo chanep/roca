@@ -1,0 +1,281 @@
+﻿@{
+    ViewBag.Title = "Materiales";
+}
+<style>
+    .form-group
+    {
+        margin-bottom: 5px;
+    }
+</style>
+<form name="filterForm" class="container-fluid" novalidate>
+    <div class="row">
+        <div class="col-md-3 col-sm-12">
+            <div class="row">
+                <div class="form-group">
+                    <label class="control-label small" for="Project">
+                        Proyecto
+                    </label>
+                    <select class="form-control input-sm" name="Project" data-ng-model="Model.Filter.ProjectId"
+                            data-ng-options="p.Id as p.Name for p in Model.Projects" data-ng-change="projectChanged()"></select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label small" for="Area">
+                        Area
+                    </label>
+                    <select class="form-control input-sm" name="Area" data-ng-model="Model.Filter.AreaId"
+                            data-ng-options="a.Id as a.Name for a in Model.Areas" data-ng-change="areaChanged()"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-5">
+                            <label class="control-label small">
+                                Incluir
+                            </label>
+                            <div>
+                                <input type="checkbox" name="IncludeService" data-ng-model="Model.Filter.IncludeService"
+                                       ng-true-value="1" ng-false-value="0" data-ng-change="optionalFieldsChanged()" />
+                                <label class="control-label small" for="IncludeService">
+                                    Servicio
+                                </label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="IncludeLine" data-ng-model="Model.Filter.IncludeLine"
+                                       ng-true-value="2" ng-false-value="0" data-ng-change="optionalFieldsChanged()" />
+                                <label class="control-label small" for="IncludeLine">
+                                    Linea
+                                </label>
+                            </div>
+                            <div>
+                                <input type="checkbox" name="IncludeTag" data-ng-model="Model.Filter.IncludeTag"
+                                       ng-true-value="4" ng-false-value="0" data-ng-change="optionalFieldsChanged()" />
+                                <label class="control-label small" for="IncludeTag">
+                                    Tag
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-xs-7">
+                            <label class="control-label small">
+                                Ordenar
+                            </label>
+                            <div>
+                                <input ng-model="Model.Filter.Order" value="linea" type="radio" name="Order" data-ng-change="filtersChanged()">
+                                <label class="control-label small" for="Order">
+                                    Por Linea/Serv.
+                                </label>
+                            </div>
+                            <div>
+                                <input ng-model="Model.Filter.Order" value="material" type="radio" name="Order" data-ng-change="filtersChanged()">
+                                <label class="control-label small" for="Order">
+                                    Por Material
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="form-group">
+                <label class="control-label small" for="Service">
+                    Servicio
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.Service" name="Service"
+                       data-ng-change="autocompleteInputChanged('Service')" data-typeahead="item.value for item in getAutosuggest('Service',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="Line">
+                    Linea
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.Line" name="Line"
+                       data-ng-change="autocompleteInputChanged('Line')" data-typeahead="item.value for item in getAutosuggest('Line',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="Tag">
+                    Tag
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.Tag" name="Tag"
+                       data-ng-change="autocompleteInputChanged('Tag')" data-typeahead="item.value for item in getAutosuggest('Tag',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="ShortDescription">
+                    Componente
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.ShortDescription"
+                       name="ShortDescription" data-ng-change="autocompleteInputChanged('ShortDescription')"
+                       data-typeahead="item.value for item in getAutosuggest('ShortDescription',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="LongDescription">
+                    Descripcion
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.LongDescription"
+                       name="LongDescription" data-ng-change="autocompleteInputChanged('LongDescription')"
+                       data-typeahead="item.value for item in getAutosuggest('LongDescription',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="form-group">
+                <label class="control-label small" for="NominalDiam">
+                    Diametro Nominal
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.NominalDiam" name="NominalDiam"
+                       data-ng-change="autocompleteInputChanged('NominalDiam')" data-typeahead="item.value for item in getAutosuggest('NominalDiam',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="Rating">
+                    Rating
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.Rating" name="Rating"
+                       data-ng-change="autocompleteInputChanged('Rating')" data-typeahead="item.value for item in getAutosuggest('Rating',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="Schedule">
+                    Schedule
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.Schedule" name="Schedule"
+                       data-ng-change="autocompleteInputChanged('Schedule')" data-typeahead="item.value for item in getAutosuggest('Schedule',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <div class="form-group">
+                <label class="control-label small" for="PieceMark">
+                    PieceMark
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.PieceMark" name="PieceMark"
+                       data-ng-change="autocompleteInputChanged('PieceMark')" data-typeahead="item.value for item in getAutosuggest('PieceMark',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+            <button class="btn btn-default" data-ng-click="clearFilters()">
+                Borrar Filtros
+            </button>
+        </div>
+    </div>
+</form>
+<div id="GrillaPanel">
+    <div class="tituloGrilla">
+        Materiales<img data-ng-show="Model.Loading" src="@Url.Content("~/Content/Images/loading_small.gif")" style="margin-left: 0.5em;" /></div>
+    <div id="Grilla">
+        <table class="grilla">
+            <tr>
+                <th class="header">
+                    Part
+                </th>
+                <th data-ng-if="Model.Filter.IncludeService != '0'" class="header">
+                    Servicio
+                </th>
+                <th data-ng-if="Model.Filter.IncludeLine != '0'" class="header">
+                    Linea
+                </th>
+                <th data-ng-if="Model.Filter.IncludeTag != '0'" class="header">
+                    Tag
+                </th>
+                <th class="header">
+                    DiamNom
+                </th>
+                <th class="header">
+                    Clase
+                </th>
+                <th class="header">
+                    Componente
+                </th>
+                <th class="header">
+                    Descripcion
+                </th>
+                <th class="header">
+                    Material
+                </th>
+                <th class="header">
+                    Rating
+                </th>
+                <th class="header">
+                    Sched.
+                </th>
+                <th class="header">
+                    Pintura
+                </th>
+                <th class="header">
+                    Aisl.
+                </th>
+                <th class="header">
+                    PieceMark
+                </th>
+                <th class="header">
+                    Cant.
+                </th>
+                <th class="header">
+                    Prov. por otros
+                </th>
+                <th class="header">
+                    Cant. Total
+                </th>
+            </tr>
+            <tr data-ng-repeat="material in Model.Materials">
+                <td class="celda">
+                    {{ $index + 1 + Model.PageInfo.FirstItem }}
+                </td>
+                <td data-ng-if="Model.Filter.IncludeService != '0'" class="celda">
+                    {{material.Service}}
+                </td>
+                <td data-ng-if="Model.Filter.IncludeLine != '0'" class="celda">
+                    {{material.Line}}
+                </td>
+                <td data-ng-if="Model.Filter.IncludeTag != '0'" class="celda">
+                    {{material.Tag}}
+                </td>
+                <td class="celda">
+                    {{material.NominalDiam}}
+                </td>
+                <td class="celda">
+                    {{material.Class}}
+                </td>
+                <td class="celda">
+                    {{material.ShortDescription}}
+                </td>
+                <td class="celda">
+                    {{material.LongDescription}}
+                </td>
+                <td class="celda">
+                    {{material.Material}}
+                </td>
+                <td class="celda">
+                    {{material.Rating}}
+                </td>
+                <td class="celda">
+                    {{material.Schedule}}
+                </td>
+                <td class="celda">
+                    {{material.PaintCode}}
+                </td>
+                <td class="celda">
+                    {{material.Insulation}}
+                </td>
+                <td class="celda">
+                    {{material.PieceMark}}
+                </td>
+                <td class="celda">
+                    {{material.Quantity}}
+                </td>
+                <td class="celda">
+                    {{material.QuantityByOthers}}
+                </td>
+                <td class="celda">
+                    {{material.TotalQuantity}}
+                </td>
+            </tr>
+        </table>
+        <div style="margin-top: 10px">
+            <pagination ng-show="Model.PageInfo.TotalItems > Model.PageInfo.ItemsPerPage" boundary-links="true"
+                total-items="Model.PageInfo.TotalItems" ng-model="Model.PageInfo.CurrentPage" items-per-page="Model.PageInfo.ItemsPerPage"
+                max-size="20" ng-change="pageChanged(page)" class="pagination-sm" previous-text="&lsaquo;"
+                next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+﻿<style>
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+        color: #ffffff;
+        text-decoration: none;
+        background-color: #428bca;
+    }
+</style>
+<div>
+    <div class="row">
+        <div class="col-lg-2 form-group">
+            <label class="control-label small">Especialidad</label>
+            <select class="form-control input-sm" ng-model="Model.Specialty" ng-options="sp as sp.Name for sp in Model.Specialties" ng-change="specialtyChanged()"></select>
+        </div>  
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <div style="padding-bottom: 10px">
+                <label class="control-label small">Tipos</label>
+                <select class="form-control" data-context="context1" size="15" ng-model="Model.Type" ng-options="t as t.Name for t in Model.Types" ng-change="typeChanged()"></select>
+            </div>
+            <div ng-show="!Model.TypeEditMode">
+                <label class="control-label small">Nuevo Tipo</label>
+                <div class="form-group">
+                    <input class="input-sm col-lg-7" type="text" ng-model="Model.NewType" />
+                    <button class="btn btn-sm btn-primary col-lg-4 col-lg-offset-1" ng-disabled="!Model.NewType || Model.NewType.length == 0" ng-click ="addType()">Agregar</button>
+                </div>  
+            </div>
+            <div ng-show="Model.TypeEditMode">
+                <div class ="form-group">
+                    <label class="control-label small">Editar Tipo</label>
+                    <input class="form-control input-sm" type="text" ng-model="Model.UpdatedType" />
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-primary" ng-disabled="Model.UpdatedType.length == 0" ng-click="saveType()">Salvar</button>
+                    <button class="btn btn-sm btn-default" ng-click="cancelSaveType()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div style="padding-bottom: 10px">
+                <label class="control-label small">Subtipos</label>
+                <select class="form-control" data-context="context2" size="15" ng-model="Model.Subtype" ng-options="t as t.Name for t in Model.Type.Subtypes" ng-change="subTypeChanged()"></select>
+            </div>
+            <div ng-show="!Model.SubtypeEditMode">
+                <label class="control-label small">Nuevo Subtipo</label>
+                <div class="form-group">
+                    <input class="input-sm col-lg-7" type="text" ng-model="Model.NewSubtype" />
+                    <button class="btn btn-sm btn-primary col-lg-4 col-lg-offset-1" ng-disabled="!Model.NewSubtype || Model.NewSubtype.length == 0" ng-click="addSubtype()">Agregar</button>
+                </div>
+            </div>
+            <div ng-show="Model.SubtypeEditMode">
+                <div class="form-group">
+                    <label class="control-label small">Editar Subtipo</label>
+                    <input class="form-control input-sm" type="text" ng-model="Model.UpdatedSubtype" />
+                </div>
+                <div>
+                    <button class="btn btn-sm btn-primary" ng-disabled="Model.UpdatedSubtype.length == 0" ng-click="saveSubtype()">Salvar</button>
+                    <button class="btn btn-sm btn-default" ng-click="cancelSaveSubtype()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label class="control-label small">Atributos</label>
+            </div>      
+            <div class="row form-group" ng-repeat="attribute in Model.Attributes">
+                <label class="control-label small col-lg-5">Atributo {{$index+1}}</label>
+                <input class="input-sm col-lg-7" ng-model="attribute.Name" type="text" />
+            </div>
+            <div class="row">
+                <button class=" btn btn-sm btn-primary pull-right" ng-disabled="!canSaveAttributes()" ng-click="saveAttributes()">Salvar Atributos</button>              
+            </div>
+
+        </div>
+    </div>
+    <ul id="context1" class="dropdown-menu">
+        <li><a ng-click="editType()">Editar</a></li>
+        <li><a ng-click="deleteType()">Eliminar</a></li>
+    </ul>
+    <ul id="context2" class="dropdown-menu">
+        <li><a ng-click="editSubtype()">Editar</a></li>
+        <li><a ng-click="deleteSubtype()">Eliminar</a></li>
+    </ul>
+</div>
+
+
+
+<script type="text/javascript">
+    $('select').on('mousedown', 'option', function(e) {
+        $(this).prop('selected', true);
+        $(this).parents('select').trigger('change');
+    });
+</script>
+
+
