@@ -1,5 +1,5 @@
 ﻿angular.module('app').controller('Autoplant.List.Controller', ['$scope', 'AutoplantService', function ($scope, autoplantService) {
-    $scope.RootModel.Title = "Materiales Piping";
+    $scope.RootModel.Title = "Piping - Autoplant";
 
     $scope.Model = {};
     var m = $scope.Model;
@@ -10,6 +10,7 @@
     m.Filter.IncludeService = "1";
     m.Filter.IncludeLine = "2";
     m.Filter.IncludeTag = "4";
+    m.Filter.IncludeInsulation = "8";
     m.Filter.Order = "linea";
     m.Filter.Take = maxRows;
     m.PageInfo = { TotalItems: 0, CurrentPage: 1, ItemsPerPage: maxRows, FirstItem: 0  };
@@ -61,8 +62,8 @@
         }
     }
 
-    $scope.pageChanged = function (page) {
-        m.Filter.Skip = (page - 1) * m.PageInfo.ItemsPerPage;
+    $scope.pageChanged = function () {
+        m.Filter.Skip = (m.PageInfo.CurrentPage - 1) * m.PageInfo.ItemsPerPage;
         getMaterialsPage();
     }
 
@@ -88,19 +89,20 @@
     function getMaterialsPage() {
         m.Loading = true;
         autoplantService.getMaterials(m.Filter)
-            .then(function(data) {
+            .then(function (data) {
                 m.Materials = data.Materials;
                 m.PageInfo.TotalItems = data.Count;
                 m.PageInfo.FirstItem = (m.PageInfo.CurrentPage - 1) * m.PageInfo.ItemsPerPage;
                 m.Loading = false;
             });
+                
     }
    
     function clearFilters() {
         var f = m.Filter;
 
         var filtersEmpty = f.Service == "" && f.Line == "" && f.Tag == "" && f.ShortDescription == "" &&
-                           f.LongDescription == "" && f.NominalDiam == "" && f.Rating == "" && f.Schedule == "" && f.PieceMark == "";
+                           f.LongDescription == "" && f.NominalDiam == "" && f.Rating == "" && f.Schedule == "" && f.PieceMark == "" && f.Spool == "";
         f.Service = "";
         f.Line = "";
         f.Tag = "";
@@ -110,6 +112,7 @@
         f.Rating = "";
         f.Schedule = "";
         f.PieceMark = "";
+        f.Spool = "";
 
         if (!filtersEmpty) {
             getMaterials();
@@ -117,7 +120,7 @@
     }
     function updateOptionalFields() {
         var f = m.Filter;
-        f.OptionalFields = parseInt(f.IncludeService) + parseInt(f.IncludeLine) + parseInt(f.IncludeTag);
+        f.OptionalFields = parseInt(f.IncludeService) + parseInt(f.IncludeLine) + parseInt(f.IncludeTag) + parseInt(f.IncludeInsulation);
     }
 
 

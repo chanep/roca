@@ -1,12 +1,14 @@
 ﻿angular.module('app').factory('AutoplantService', ['$http', function ($http) {
 
+    var currentProjectId = 0;
+
     var getProjects = function () {
-        return $http.get("Autoplant/GetProjects")
+        return $http.get("Autoplant/GetProjects", { cache: true })
             .then(function (data) { return data.data; });
     };
 
     var getAreas = function (projId) {
-        return $http.get("Autoplant/GetAreas", { params: { projId: projId } })
+        return $http.get("Autoplant/GetAreas", { cache: true, params: { projId: projId } })
             .then(function (data) { return data.data; });
     };
 
@@ -21,6 +23,7 @@
 
 
     return {
+        currentProjectId : currentProjectId,
         getProjects: getProjects,
         getAreas: getAreas,
         getMaterials: getMaterials,

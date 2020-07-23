@@ -12,7 +12,7 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
         protected override void HandleUnauthorizedRequest(AuthorizationContext context)
         {
             context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-            context.HttpContext.Response.AppendHeader("roca-redirection", @"Login/Unauthorized");
+            context.HttpContext.Response.AppendHeader("roca-redirection", @"User/Unauthorized");
         }
     }
 }

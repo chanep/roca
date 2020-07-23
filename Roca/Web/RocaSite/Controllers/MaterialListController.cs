@@ -97,7 +97,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
 
         public JsonResult GetNewVm()
         {
-            var user = SessionManager.GetLoggedtUser();
+            var user = SessionManager.GetCurrentUser();
             var mlDto = new MaterialListDto()
             {
                 CreatorId = user.Id,
@@ -117,7 +117,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
         {
 
             ml.CreatedOn = DateTime.Now;
-            ml.CreatorId = SessionManager.GetLoggedtUser().Id;
+            ml.CreatorId = SessionManager.GetCurrentUser().Id;
             RocaService.MaterialListService.Add(ml);
             var mlDto = new MaterialListDto(ml);
             return Json(mlDto, JsonRequestBehavior.AllowGet);
@@ -127,7 +127,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
         public void Save(MaterialList ml)
         {
             ml.UpdatedOn = DateTime.Now;
-            ml.UpdaterId = SessionManager.GetLoggedtUser().Id;
+            ml.UpdaterId = SessionManager.GetCurrentUser().Id;
             RocaService.MaterialListService.Update(ml);
         }
 
@@ -154,7 +154,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
                 SpecialtyId = prevRev.SpecialtyId,
                 Revision = newRevision,
                 PreviousRevisionMlId = prevRevisionId,
-                CreatorId = SessionManager.GetLoggedtUser().Id,
+                CreatorId = SessionManager.GetCurrentUser().Id,
                 CreatedOn = DateTime.Now,
                 RevisorId = prevRev.RevisorId,
                 ApproverId = prevRev.ApproverId,

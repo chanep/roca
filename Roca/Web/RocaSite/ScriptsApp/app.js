@@ -1,4 +1,4 @@
-﻿angular.module('app', ['ui.router', 'ui.utils', 'ngAnimate', 'directive.contextMenu', 'ngGrid', 'ui.bootstrap'])
+﻿angular.module('app', ['ui.router', 'ui.utils', 'ngAnimate','ngSanitize', 'myModule', 'ngGrid', 'smart-table', 'ui.bootstrap'])
 
     .config(['$httpProvider', function ($httpProvider) {
         $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
@@ -8,7 +8,13 @@
                 $stateProvider
                     .state('home', {
                         url: '/',
-                        templateUrl: 'Login/Welcome'
+                        templateUrl: 'User/Welcome',
+                        controller: 'User.Welcome.Controller'
+                    })
+                    .state('login', {
+                        url: '/User/Login',
+                        templateUrl: 'User/Login',
+                        controller: 'User.Login.Controller'
                     })
 //                    .state('home', {
 //                        url: '/',
@@ -104,7 +110,7 @@
                             var $state = $injector.get('$state');
                             if (redirUrl == 'Project/Selection') {
                                 $state.go('projectSelection', { from: $location.path() });
-                            } else if (params[0] == "Error" || redirUrl == "Login/Unauthorized") {
+                            } else if (params[0] == "Error" || redirUrl == "User/Unauthorized") {
                                 //$state.go('error', { type: params[1] });
                                 $state.go('generic_controllerless', { controller: params[0], action: params[1] });
                             } else {
@@ -112,10 +118,6 @@
                             }
                         }
                         return $q.reject(rejection);
-
-                        //if (canRecover(rejection)) {
-                        //    return responseOrNewPromise
-                        //}
                         
                     }
                 };
@@ -135,7 +137,7 @@
     .run(['$rootScope', '$location', function($rootScope, $location) {
 
             $rootScope.RootModel = {};
-            $rootScope.RootModel.Title = "Materiales";
+            $rootScope.RootModel.Title = "Odebrecht";
 
             $rootScope.$on("$locationChangeStart", function (event, next, current) {
                 var x = 3;

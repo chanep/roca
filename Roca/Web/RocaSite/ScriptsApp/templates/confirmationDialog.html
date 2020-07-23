@@ -4,7 +4,7 @@
     </div>
     <div class="modal-body">
         <div style="margin-bottom: 15px;">
-            {{Question}}
+            <span ng-bind-html="Question"></span>
         </div>
         <div class="form-group" ng-repeat="field in Fields">
             <label class="control-label small" >{{field.Label}}</label>

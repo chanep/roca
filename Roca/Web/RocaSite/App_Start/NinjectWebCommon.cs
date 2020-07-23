@@ -75,8 +75,10 @@ namespace Cno.Roca.Web.RocaSite.App_Start
             //kernel.Bind<IRocaUow>().ToConstant(GetRocaUowMock().Object);
             kernel.Bind<ISessionManager>().To(typeof(SessionManager));
             kernel.Bind<ILogger>().To(typeof(NLogLogger));
+            kernel.Bind<IMatPipingMigrator>().To(typeof(MatPipingMigrator));
 
-            kernel.Bind<IAuthProvider>().To(typeof(FormsAuthProvider));
+            //kernel.Bind<IAuthProvider>().To(typeof(FormsAuthProvider));
+            kernel.Bind<IAuthProvider>().To(typeof(WindowsAuthProvider));
         }        
     }
 }

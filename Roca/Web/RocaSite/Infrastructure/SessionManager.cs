@@ -18,6 +18,12 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
             get { return DependencyResolver.Current.GetService<IRocaService>().CommonService; }
         }
 
+        private IAuthProvider AuthProvider
+        {
+            get { return DependencyResolver.Current.GetService<IAuthProvider>(); }
+        }
+
+
         private SessionContext CurrentSessionContext
         {
             get { return (SessionContext)HttpContext.Current.Session["SessionContext"]; }
@@ -65,20 +71,26 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
         }
          
 
-        public User GetLoggedtUser()
+        public User GetCurrentUser()
         {
-            if (HttpContext.Current.Session["user"] == null)
-            {
-                var longUserName = GetWindowsUser();
-                var user = CommonService.GetUserByLongName(longUserName);
-                if (user == null)
-                    user = GetDefaultUser();
-                HttpContext.Current.Session["user"] = user;
-            }
-            return (User) HttpContext.Current.Session["user"];
+            if (HttpContext.Current.Session["user"] != null)
+                return (User)HttpContext.Current.Session["user"];
+
+            var loggedUsername = AuthProvider.GetUserName();
+            if (loggedUsername == null)
+                return null;
+
+            var user = CommonService.GetUserByLongName(loggedUsername);
+            if(user == null)
+                return null;
+
+            HttpContext.Current.Session["user"] = user;
+
+            return user;
         }
 
-        public void ImpersonateUser(User user)
+
+        public void SetCurrentUser(User user)
         {
             HttpContext.Current.Session["user"] = user;
         }

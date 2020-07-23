@@ -13,7 +13,10 @@ namespace Cno.Roca.BackEnd.Materials.Data.Users
         public const string Admin = "Admin";
         public const string SuperAdmin = "SuperAdmin";
         public const string Leader = "Leader";
+        public const string BasAdmin = "BasAdmin";
+        public const string BasWrite = "BasWrite";
 
-        public static string[] All = { None, Read, Write, Admin, SuperAdmin, Leader};
+
+        public static string[] All = { None, Read, Write, Admin, SuperAdmin, Leader, BasAdmin, BasWrite};
     }
 }

@@ -82,6 +82,9 @@ namespace Cno.Roca.BackEnd.Materials.BL.Services
 
         public void Update(TimeSheet timeSheet)
         {
+            var current = RocaUow.TimeSheets.Get(timeSheet.Id);
+            if(current.ControlDate != timeSheet.ControlDate)
+                throw new RocaUserException("No puede modificar la fecha de control de una Planilla de Horas");
             RocaUow.TimeSheets.Update(timeSheet);
             RocaUow.Commit();
         }

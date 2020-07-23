@@ -49,6 +49,7 @@
     <Compile Include="MaterialOptionalFields.cs" />
     <Compile Include="MaterialPiping.cs" />
     <Compile Include="MaterialPipingOrder.cs" />
+    <Compile Include="MatPipingMigration.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

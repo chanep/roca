@@ -1,0 +1,162 @@
+﻿<style type="text/css">
+    .st-sort-ascent:before{
+        content: '\25B2';
+    }
+
+    .st-sort-descent:before{
+        content: '\25BC';
+    }
+     .input-sm {
+         height: 25px;
+         padding: 1px 8px;
+         font-size: 12px;
+         line-height: 1.5;
+         border-radius: 3px;
+     }
+    select.input-sm {
+        height: 25px;
+        line-height: 25px;
+        padding: 1px 0px 1px 6px;
+    }
+    .fieldSetLegend
+    {
+        color: #006090;
+        font-weight: bold;
+        font-size: 0.9em;
+        padding: .1em;
+    }
+    .elementCode {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .elementDescription {
+        font-size: 12px;
+    }
+
+    div.division {
+        width: 800px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+
+    table.grilla {
+        border: 2px solid gray;
+        border-collapse: collapse;
+        background: white;
+        font-size: 0.8em;
+    }
+    th.header {
+        font-weight: bold;
+        padding: .2em;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        text-align: left;
+    }
+    td.celda {
+        padding: .1em .4em .1em .4em;
+        border: 1px solid gray;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row form-group">
+        <div>
+            <label class="control-label small">Tipo</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="elementType in Model.elementTypes" ng-model="Model.filter.TypeId" btn-radio="elementType.Id" ng-change="filterChanged()">{{elementType.Name}}</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-sm-12">
+            <fieldset>
+                <legend class="fieldSetLegend">Filtros</legend>
+                <div class="col-md-3 col-sm-3">
+                    <div>
+                        <label class="control-label small">Codigo</label>
+                    </div>
+                    <div>
+                        <input class="form-control input-sm" ng-model="Model.filter.FullCode" ng-model-options="{debounce: {'default': 300, 'blur': 0}}" ng-change="filterChanged()"/>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div>
+                        <label class="control-label small">Descripcion</label>
+                    </div>
+                    <div>
+                        <input class="form-control input-sm" ng-model="Model.filter.Description" ng-model-options="{debounce: {'default': 300, 'blur': 0}}" ng-change="filterChanged()"/>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 text-right">
+                    <button class="btn btn-default" ng-click="clearFilter()">
+                        Borrar Filtros
+                    </button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div style="overflow: auto;">
+            <div style="float: left">
+                <label class="control-label small">Elementos</label>
+            </div>
+            <div style="float: right;">
+                <a class="actionLink" style="cursor: pointer;" ng-click="getSisepcCatalog()">Exportar SisEpc</a>
+            </div>
+        </div>
+
+        <table style="width: 100%;" st-table="displayedCollection" st-safe-src="Model.elements" class="grilla">
+            <tr>
+                <th st-sort="FullCode" class="header">
+                    Codigo
+                </th>
+                <th st-sort="Description" class="header">
+                    Descripcion
+                </th>
+                <th st-sort="DimensionalDescription" class="header">
+                    Dimensiones
+                </th>
+                <th st-sort="Unit" class="header">
+                    Unidad
+                </th>
+                <th st-sort="Observations" class="header">
+                    Obs.
+                </th>
+                <th ng-if="::canEdit()" class="header">
+
+                </th>
+                <th ng-if="::canDelete()" class="header">
+
+                </th>
+            </tr>
+            <tr ng-repeat="element in displayedCollection">
+                <td class="celda">
+                    {{element.FullCode}}
+                </td>
+                <td class="celda">
+                    {{element.Description}}
+                </td>
+                <td style="min-width: 150px;" class="celda">
+                    {{element.DimensionalDescription}}
+                </td>
+                <td class="celda text-center">
+                    {{element.Unit}}
+                </td>
+                <td style="min-width: 100px;" class="celda">
+                    {{element.Observations}}
+                </td>
+                <td ng-if="::canEdit()" class="celda text-center">
+                    <a ng-href="#/Bas/ElementDetails/{{element.Id}}"><i title="Editar" class="glyphicon glyphicon-pencil"></i></a>
+                </td>
+                <td ng-if="::canDelete()" class="celda text-center">
+                    <a ng-click="deleteElement(element)"><i title="Eliminar" style="color: #ff0000; cursor: pointer;" class="glyphicon glyphicon-remove-circle"></i></a>
+                </td>
+            </tr>
+        </table>
+        <div style="margin-top: 10px">
+            <pagination ng-show="Model.pageInfo.totalItems > Model.pageInfo.itemsPerPage" boundary-links="true"
+                        total-items="Model.pageInfo.totalItems" ng-model="Model.pageInfo.currentPage" items-per-page="Model.pageInfo.itemsPerPage"
+                        max-size="20" ng-change="pageChanged()" class="pagination-sm" previous-text="&lsaquo;"
+                        next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+</div>

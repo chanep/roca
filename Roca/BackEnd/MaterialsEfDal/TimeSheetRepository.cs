@@ -90,7 +90,8 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
                 .SelectMany(t => t.Items)
                 .Where(i => i.DocumentId != null)
                 .Include(i => i.Document.Project.Parent)
-                .Include(i => i.Document.Specialty);
+                .Include(i => i.Document.Specialty)
+                .Include(i => i.TimeSheet.User);
         }
 
         public IQueryable<TimeSheetItem> GetAllTaskItems()
@@ -105,10 +106,12 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
             return DbSet.Include(t => t.Items)
                 .Where(t => (filter.FromDate == null || t.ControlDate >= filter.FromDate.Value) &&
                             (filter.ToDate == null || t.ControlDate <= filter.ToDate.Value))
+                .Include(t => t.User)
                 .SelectMany(t => t.Items)
                 .Where(i => i.TaskId != null)
                 .Include(i => i.Task)
-                .Include(i => i.Subproject.Parent);
+                .Include(i => i.Subproject.Parent)
+                .Include(i => i.TimeSheet.User);
         }
 
         public IQueryable<TimeSheetItem> GetAllItems(int id)

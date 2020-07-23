@@ -1,0 +1,114 @@
+﻿<style type="text/css">
+    .input-sm {
+        height: 25px;
+        padding: 1px 8px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+    select.input-sm {
+        height: 25px;
+        line-height: 25px;
+        padding: 1px 0px 1px 6px;
+    }
+    .fieldSetLegend
+    {
+        color: #006090;
+        font-weight: bold;
+        font-size: 0.9em;
+        padding: .1em;
+    }
+    .elementCode{
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .elementDescription{
+        font-size: 12px;
+    }
+
+    div.division {
+        width: 800px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+</style>
+<form name="elementForm" novalidate>
+    <div class="container-fluid">
+        <div class="row form-group" ng-if="::!Model.editMode">
+            <div>
+                <label class="control-label small">Tipo</label>
+            </div>
+            <div class="btn-group">
+                <label class="btn btn-primary" ng-repeat="elementType in ::Model.elementTypes" ng-model="Model.elementType" btn-radio="elementType" ng-change="elementTypeChanged()">{{elementType.Name}}</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8 col-sm-10">
+                <p style="color: red; font-weight: bold;" ng-if="Model.errorVisible">{{Model.error}}</p> 
+                <fieldset>
+                    <legend class="fieldSetLegend">Elemento</legend>
+                    <div class="elementCode">{{getElementCode()}}</div>
+                    <div class="elementDescription">{{getElementDescription()}}</div>
+                </fieldset>
+            </div>
+            <div class="col-md-4 col-sm-2" style="padding-top: 20px;">
+                <button type="button" ng-click="save()"class="btn btn-primary" ng-disabled="!canSave()">Salvar</button>
+                <p style="color: green; font-weight: bold;" ng-show="Model.saved && !elementForm.$dirty">Salvado!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7 col-sm-12">
+                <fieldset>
+                    <legend class="fieldSetLegend">Campos del codigo del elemento</legend>
+                    <div class="row form-group" ng-repeat="field in Model.fields">
+                        <ng-form name="fieldForm">
+                            <div class="col-md-2 col-sm-4 text-right">
+                                <label class="control-label small">{{field.fieldDefinition.Name}}</label>
+                            </div>
+                            <div class="col-md-3 col-sm-8">
+                                <input class="form-control input-sm" ng-model="field.searchTerm" ng-disabled="::Model.editMode"
+                                       data-typeahead="basCode.Description for basCode in getAutosuggestBasCode(field) | filter:$viewValue"
+                                       data-typeahead-on-select="basCodeSelected(field)" data-typeahead-wait-ms="250"/>
+                            </div>
+                            <div class="col-md-6" ng-class="{'has-error': fieldForm.basCode.$invalid}">
+                                <select class="form-control input-sm" name="basCode" ie-select-fix required  ng-disabled="::Model.editMode"
+                                ng-model="field.basCode" ng-options="b as b.Description for b in field.basCodes | orderBy:'Description'" ng-change="basCodeChanged(field)"></select>
+                            </div>
+                        </ng-form>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="col-lg-2 col-md-5 col-sm-6">
+                <fieldset>
+                    <legend class="fieldSetLegend">Atributos extra</legend>
+                    <div class="form-group">
+                        <label class="control-label small">Unidad</label>
+                        <select class="form-control input-sm" ie-select-fix ng-model="Model.element.Unit" ng-options="u for u in Model.units"></select>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label small">Observaciones</label>
+                        <input class="form-control input-sm" name="observations" ng-model="Model.element.Observations"/>
+                    </div>
+                    <div class="form-group" ng-class="{'has-error': elementForm.weight.$invalid}" >
+                        <label class="control-label small">Peso (kg)</label>
+                        <input class="form-control input-sm" type="number" name="weight" ng-model="Model.element.Weight"/>
+                    </div>
+                    <div class="form-group" ng-repeat="attribute in Model.element.ExtraAttributes">
+                        <ng-form name="attributeForm">
+                            <label class="control-label small">{{attribute.Name}}</label>
+                            <div ng-if="attribute.Type == 'String'">
+                                <input class="form-control input-sm" name="attrValue" ng-model="attribute.Value"/>
+                            </div>
+                            <div ng-if="attribute.Type == 'Int32'" ng-class="{'has-error': attributeForm.attrValue.$invalid}">
+                                <input class="form-control input-sm" name="attrValue" ng-model="attribute.Value" ui-validate="'isValidInt($value)'" />
+                            </div>
+                            <div ng-if="attribute.Type == 'Double'" ng-class="{'has-error': attributeForm.attrValue.$invalid}">
+                                <input class="form-control input-sm" name="attrValue" ng-model="attribute.Value" ui-validate="'isValidNumber($value)'" />
+                            </div>
+                        </ng-form>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</form>

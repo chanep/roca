@@ -47,14 +47,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BasCodeRepository.cs" />
+    <Compile Include="BasElementRepository.cs" />
     <Compile Include="EfGenericRepository.cs" />
     <Compile Include="FilteredDbSet.cs" />
+    <Compile Include="Mappings\BasClassAttributeMap.cs" />
+    <Compile Include="Mappings\BasClassMap.cs" />
+    <Compile Include="Mappings\BasCodeFieldMap.cs" />
+    <Compile Include="Mappings\BasCodeMap.cs" />
+    <Compile Include="Mappings\BasElementCableMap.cs" />
+    <Compile Include="Mappings\BasElementEiMap.cs" />
+    <Compile Include="Mappings\BasElementMap.cs" />
+    <Compile Include="Mappings\BasElementTypeMap.cs" />
+    <Compile Include="Mappings\BasElementValveMap.cs" />
+    <Compile Include="Mappings\BasFieldDefinitionMap.cs" />
+    <Compile Include="Mappings\BasElementPipingMap.cs" />
     <Compile Include="Mappings\DocumentMap.cs" />
     <Compile Include="Mappings\EiMaterialDetailsMap.cs" />
     <Compile Include="Mappings\EiMaterialMap.cs" />
     <Compile Include="Mappings\LookUpMap.cs" />
     <Compile Include="Mappings\MaterialListMap.cs" />
     <Compile Include="Mappings\MaterialMap.cs" />
+    <Compile Include="Mappings\MatPipingMap.cs" />
     <Compile Include="Mappings\MlItemMap.cs" />
     <Compile Include="Mappings\PMaterialMap.cs" />
     <Compile Include="Mappings\ProjectMap.cs" />
@@ -67,6 +81,7 @@
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="MaterialListRepository.cs" />
     <Compile Include="MaterialRepository.cs" />
+    <Compile Include="MatPipingRepository.cs" />
     <Compile Include="ProjectRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RocaContext.cs" />

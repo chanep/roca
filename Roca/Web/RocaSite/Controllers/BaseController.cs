@@ -21,8 +21,26 @@ namespace Cno.Roca.Web.RocaSite.Controllers
         {
             RocaService = rocaService;
             SessionManager = sessionManager;
-            LoggedUser = sessionManager.GetLoggedtUser();
+            LoggedUser = sessionManager.GetCurrentUser();
         }
+
+        protected string GetPropertyString(object obj, string property)
+        {
+            var value = obj.GetType().GetProperty(property).GetValue(obj, null);
+            if (value == null)
+                return "";
+            return value.ToString();
+        }
+
+        //protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
+        //{
+        //    return new ServiceStackJsonResult
+        //    {
+        //        Data = data,
+        //        ContentType = contentType,
+        //        ContentEncoding = contentEncoding
+        //    };
+        //}
 
     }
 }

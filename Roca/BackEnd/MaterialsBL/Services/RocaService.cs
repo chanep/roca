@@ -19,6 +19,8 @@ namespace Cno.Roca.BackEnd.Materials.BL.Services
         private IMaterialListService _materialListService;
         private ITaggableTypeService _taggableTypeService;
         private ITimeSheetService _timeSheetService;
+        private IMatPipingService _matPipingService;
+        private IBasService _basService;
 
         public virtual ICommonService CommonService
         {
@@ -69,5 +71,26 @@ namespace Cno.Roca.BackEnd.Materials.BL.Services
                 return _timeSheetService;
             }
         }
+
+        public IMatPipingService MatPipingService
+        {
+            get
+            {
+                if (_matPipingService == null)
+                    _matPipingService = new MatPipingService(RocaUow);
+                return _matPipingService;
+            }
+        }
+
+        public IBasService BasService
+        {
+            get
+            {
+                if (_basService == null)
+                    _basService = new BasService(RocaUow);
+                return _basService;
+            }
+        }
+
     }
 }

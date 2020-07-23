@@ -15,6 +15,7 @@ namespace Cno.Roca.Web.RocaSite.Models
         public string Rating { get; set; }
         public string Schedule { get; set; }
         public string PieceMark { get; set; }
+        public string Spool { get; set; }
         public string Order { get; set; }
         public MaterialOptionalFields OptionalFields { get; set; }
         public int Skip { get; set; }

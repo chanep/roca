@@ -54,6 +54,13 @@
                                     Tag
                                 </label>
                             </div>
+                            <div>
+                                <input type="checkbox" name="IncludeInsulation" data-ng-model="Model.Filter.IncludeInsulation"
+                                       ng-true-value="8" ng-false-value="0" data-ng-change="optionalFieldsChanged()" />
+                                <label class="control-label small" for="IncludeInsulation">
+                                    Aislacion
+                                </label>
+                            </div>
                         </div>
                         <div class="col-xs-7">
                             <label class="control-label small">
@@ -68,7 +75,7 @@
                             <div>
                                 <input ng-model="Model.Filter.Order" value="material" type="radio" name="Order" data-ng-change="filtersChanged()">
                                 <label class="control-label small" for="Order">
-                                    Por Material
+                                    Por PieceMark
                                 </label>
                             </div>
                         </div>
@@ -76,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-6">
             <div class="form-group">
                 <label class="control-label small" for="Service">
                     Servicio
@@ -120,7 +127,7 @@
                        data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6">
+        <div class="col-lg-3 col-md-3 col-sm-6">
             <div class="form-group">
                 <label class="control-label small" for="NominalDiam">
                     Diametro Nominal
@@ -153,6 +160,17 @@
                        data-ng-change="autocompleteInputChanged('PieceMark')" data-typeahead="item.value for item in getAutosuggest('PieceMark',$viewValue) | filter:$viewValue"
                        data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
             </div>
+            <div class="form-group">
+                <label class="control-label small" for="Spool">
+                    Spool
+                </label>
+                <input class="form-control input-sm" data-ng-model="Model.Filter.Spool" name="Spool"
+                       data-ng-change="autocompleteInputChanged('Spool')" data-typeahead="item.value for item in getAutosuggest('Spool',$viewValue) | filter:$viewValue"
+                       data-typeahead-on-select="filtersChanged()" data-typeahead-wait-ms="300" />
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6" style="padding-top: 20px;">
             <button class="btn btn-default" data-ng-click="clearFilters()">
                 Borrar Filtros
             </button>
@@ -201,11 +219,14 @@
                 <th class="header">
                     Pintura
                 </th>
-                <th class="header">
+                <th data-ng-if="Model.Filter.IncludeInsulation != '0'" class="header">
                     Aisl.
                 </th>
                 <th class="header">
                     PieceMark
+                </th>
+                <th class="header">
+                    Spool
                 </th>
                 <th class="header">
                     Cant.
@@ -217,7 +238,7 @@
                     Cant. Total
                 </th>
             </tr>
-            <tr data-ng-repeat="material in Model.Materials">
+            <tr ng-repeat="material in Model.Materials">
                 <td class="celda">
                     {{ $index + 1 + Model.PageInfo.FirstItem }}
                 </td>
@@ -254,11 +275,14 @@
                 <td class="celda">
                     {{material.PaintCode}}
                 </td>
-                <td class="celda">
+                <td data-ng-if="Model.Filter.IncludeInsulation != '0'" class="celda">
                     {{material.Insulation}}
                 </td>
                 <td class="celda">
                     {{material.PieceMark}}
+                </td>
+                <td class="celda">
+                    {{material.Spool}}
                 </td>
                 <td class="celda">
                     {{material.Quantity}}
@@ -274,7 +298,7 @@
         <div style="margin-top: 10px">
             <pagination ng-show="Model.PageInfo.TotalItems > Model.PageInfo.ItemsPerPage" boundary-links="true"
                 total-items="Model.PageInfo.TotalItems" ng-model="Model.PageInfo.CurrentPage" items-per-page="Model.PageInfo.ItemsPerPage"
-                max-size="20" ng-change="pageChanged(page)" class="pagination-sm" previous-text="&lsaquo;"
+                max-size="20" ng-change="pageChanged()" class="pagination-sm" previous-text="&lsaquo;"
                 next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
         </div>
     </div>

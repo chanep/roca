@@ -21,6 +21,8 @@ namespace Cno.Roca.BackEnd.Materials.BL.Services
         IEnumerable<Document> GetDocuments(DocumentFilter filter, bool exactMatch = false);
         IEnumerable<User> GetUsersByRole(string role);
 
-        
+
+        Document AddDocument(Document document);
+        void UpdateDocument(Document document);
     }
 }

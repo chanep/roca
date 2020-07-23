@@ -9,5 +9,7 @@ namespace Cno.Roca.BackEnd.Materials.BL.Services
         IMaterialListService MaterialListService { get; }
         ITaggableTypeService TaggableTypeService { get; }
         ITimeSheetService TimeSheetService { get; }
+        IMatPipingService MatPipingService { get; }
+        IBasService BasService { get; }
     }
 }

@@ -89,7 +89,7 @@ DIV#header DIV.user { font-size: 0.8em; padding-right: .4em; font-weight: bold;f
 
 div#body{display: table;width: 100%; min-height: 85%; }
 
-DIV#menu {display: table-cell ; background: #DFE8F4; vertical-align: top; padding: .6em; width: 150px}
+DIV#menu {display: table-cell ; background: #DFE8F4; vertical-align: top; padding: .6em; min-width: 120px}
 DIV#menu A{ font-weight: bold;text-decoration: none; color: inherit;}
 DIV#menu a:visited{color: inherit; } 
 DIV#menu a:hover{text-decoration: underline;}

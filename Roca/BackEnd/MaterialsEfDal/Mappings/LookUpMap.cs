@@ -29,7 +29,7 @@ namespace Cno.Roca.BackEnd.Materials.EfDal.Mappings
 
             this.Property(t => t.Value)
                 .IsRequired()
-                .HasMaxLength(200);
+                .HasMaxLength(500);
 
             // Table & Column Mappings
             this.ToTable("LOOKUPS", "ROCA");

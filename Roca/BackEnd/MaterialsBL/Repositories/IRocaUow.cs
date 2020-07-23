@@ -18,6 +18,9 @@ namespace Cno.Roca.BackEnd.Materials.BL.Repositories
         ITaggableTypeRepository TaggableTypes { get; }
         IRepository<int, Document> Documents { get; }
         ITimeSheetRepository TimeSheets { get; }
+        IMatPipingRepository MatPipings { get; }
+        IBasCodeRepository BasCodes { get; }
+        IBasElementRepository BasElements { get; }
 
         /// <summary>
         /// Save pending changes to the database

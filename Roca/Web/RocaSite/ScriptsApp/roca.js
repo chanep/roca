@@ -86,8 +86,10 @@ if (!Roca) {
 
     if (typeof Roca.fillParentHeight !== 'function') {
         Roca.fillParentHeight = function(id, height) {
-            
-            var elem = $('#' + id);
+            if (id.substring(0, 1) != '.') {
+                id = '#' + id;
+            }
+            var elem = $(id);
             var elems = [];
             elem.parents().each(function() {
                 if ($(this).attr('id') == 'content') return;
@@ -127,7 +129,10 @@ if (!Roca) {
 
     if (typeof Roca.setWidth !== 'function') {
         Roca.setWidth = function(id, width) {           
-            var elem = $('#' + id);
+            if (id.substring(0, 1) != '.') {
+                id = '#' + id;
+            }
+            var elem = $(id);
             var parents = elem.parents();
             var widths = [width];
             parents.each(function() {

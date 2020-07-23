@@ -1,0 +1,58 @@
+﻿<style type="text/css">
+    .headerLabel {
+        float: left;
+        padding-right: 10px;
+        text-align: right;
+        width: 150px
+    }
+    .headerInput {
+        float: left;
+        padding-right: 5px;
+        width: 500px
+    }
+    div.division {
+        width: 800px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    table.grilla{
+        border: 2px solid gray;
+        border-collapse: collapse;
+        background: white;
+        font-size: 0.8em;
+    }
+    th.header {
+        font-weight: bold;
+        padding: .2em;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        text-align: left;
+    }
+    td.celda {
+        padding: .2em;
+        border: 1px solid gray;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row form-group">
+        <div>
+            <label class="control-label small">Elemento</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="elementType in Model.elementTypes" ng-model="Model.elementType" btn-radio="elementType" ng-change="elementTypeChanged()">{{elementType.Name}}</label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div>
+            <label class="control-label small">Campos</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="fieldDefinition in Model.elementType.FieldDefinitions" ng-model="Model.fieldDefinition" btn-radio="fieldDefinition" ng-change="fieldChanged()">{{fieldDefinition.Name}}</label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <p style="color: red; font-weight: bold;" ng-show="Model.errorVisible">{{Model.error}}</p> 
+        <div id="itemGrid" class="ngGridDiv" style="height:500px;" ng-grid="Model.gridOptions">
+        </div> 
+    </div>
+</div>

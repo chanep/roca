@@ -1,0 +1,56 @@
+﻿<span ng-if="Model.ShowLogin || isInRole('SuperAdmin')" class="menuroot">Login</span>
+<div ng-if="Model.ShowLogin" class="menuSection">
+    <div><a href="#/User/Login">Login</a></div>
+</div>
+<div class="menuSection" ng-if="isInRole('SuperAdmin')">
+    <div><a href="#/User/Impersonate">Impersonate</a></div>
+</div>
+
+<div ng-if="isInRole('SuperAdmin')">
+
+    <span id="projectMenuTooggle" class="menuroot">Proyecto</span>
+    <div id="projectMenu" class="menuSection">
+        <div><a href="#/Project/Selection">Seleccionar</a></div>
+    </div>
+
+    <span id="instrMenuTooggle" class="menuroot">Inst/Elec</span>
+    <div id="instrMenu" class="menuSection">
+        <div><a href="#/Taggable/Types">Tipos Tagueables</a></div> 
+        <div><a href="#/Material/List">Materiales</a></div>
+        <div><a href="#/MaterialList/List">ListaLM</a></div>
+    </div>
+</div>
+
+@*
+<span id="horasMenuTooggle" class="menuroot">Carga Horas</span>
+<div id="horasMenu" class="menuSection">
+    <div><a href="#/TimeSheet/Details/0">Cargar</a></div>
+    <div><a href="#/TimeSheet/List">Listar</a></div>
+    <div ng-if="isInRole('Admin')">
+        <div><a href="#/TimeSheet/Reports">Reportes</a></div>
+        <div><a href="#/TimeSheet/Defaulters">Morosos</a></div>
+        <div><a href="#/TimeSheet/Status">Cerrar planillas</a></div>
+        <div><a href="#/Document/New">Alta Docs</a></div>
+        <div><a href="#/Document/Edit">Modif. Docs</a></div>
+    </div>
+</div>
+*@
+
+
+<span id="pipingMenuTooggle" class="menuroot">Piping</span>
+<div id="pipingMenu" class="menuSection">
+    <div><a href="#/Autoplant/List">Autoplant</a></div>
+    <div><a href="#/MatPiping/Import">Importar</a></div>
+    <div><a href="#/MatPiping/LmReport">Reporte LM</a></div>
+</div>
+<span id="basMenuTooggle" class="menuroot">BAS</span>
+<div id="basMenu" class="menuSection">
+    <div ng-if="isInRole('BasAdmin')"><a href="#/Bas/New">Alta Codigo</a>
+    </div>
+    <div ng-if="isInRole('BasAdmin')"><a href="#/Bas/Edit">Editar Codigo</a>
+    </div>
+    <div ng-if="isInRole('BasWrite')"><a href="#/Bas/ElementDetails/0">Alta Elemento</a>
+    </div>
+    <div ng-if="isInRole('Read')"><a href="#/Bas/ElementList">Lista Elementos</a>
+    </div>
+</div>

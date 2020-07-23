@@ -1,0 +1,118 @@
+﻿<style type="text/css">
+    .headerLabel {
+        float: left;
+        padding-right: 10px;
+        text-align: right;
+
+    }
+    .headerInput {
+        float: left;
+        padding-right: 5px;
+    }
+    div.division {
+        width: 800px;
+        border-bottom: 1px solid #ccc;
+        margin-bottom: 20px;
+    }
+    table.grilla{
+        border: 2px solid gray;
+        border-collapse: collapse;
+        background: white;
+        font-size: 0.8em;
+    }
+    th.header {
+        font-weight: bold;
+        padding: .2em;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        text-align: left;
+    }
+    td.celda {
+        padding: .2em;
+        border: 1px solid gray;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row form-group">
+        <div>
+            <label class="control-label small">Elemento</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="elementType in Model.elementTypes" ng-model="Model.elementType" btn-radio="elementType" ng-change="elementTypeChanged()">{{elementType.Name}}</label>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div>
+            <label class="control-label small">Campos</label>
+        </div>
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-repeat="fieldDefinition in Model.elementType.FieldDefinitions" ng-model="Model.fieldDefinition" btn-radio="fieldDefinition" ng-change="fieldChanged()">{{fieldDefinition.Name}}</label>
+        </div>
+    </div>
+    <form name="codeForm">
+        <div class="col-sm-6">
+            <div class="row form-group">
+                <div class="headerLabel col-sm-3">
+                    <label class="control-label small">Codigo</label>
+                </div>
+                <div class="headerInput col-sm-9">
+                    <input class="form-control input-sm" ng-model="Model.bas.Code" name="Code" ng-change="basChanged()" />
+                </div>
+            </div>
+            
+            <div class="row form-group">
+                <div class="headerLabel col-sm-3">
+                    <label class="control-label small">Descripcion Corta</label>
+                </div>
+                <div class="headerInput col-sm-9">
+                    <input class="form-control input-sm" ng-model="Model.bas.ShortDescription" ng-change="basChanged()" name="ShortDescription" />
+                </div>
+            </div>
+        
+            <div class="row form-group">
+                <div class="headerLabel col-sm-3">
+                    <label class="control-label small">Descripcion</label>
+                </div>
+                <div class="headerInput col-sm-9">
+                    <input class="form-control input-sm" ng-model="Model.bas.Description" ng-change="basChanged()" name="Description" />
+                </div>
+            </div>
+        
+        </div>
+        <div class="col-sm-6">
+            <button type="button" ng-click="addCode()"class="btn btn-primary" ng-disabled="!isCodeValid()">Agregar</button>
+        </div>
+    </form>
+    
+    <div class="row division">
+    </div>
+    
+    <div>
+        <label class="control-label small">Codigos Existentes</label>
+    </div>
+        
+    <table class="grilla">
+        <tr>
+            <th class="header">
+                Codigo
+            </th>
+            <th class="header">
+                Descripcion Corta
+            </th>
+            <th class="header">
+                Descripcion
+            </th>
+        </tr>
+        <tr ng-repeat="code in Model.existingCodesFiltered">
+            <td class="celda">
+                {{code.Code}}
+            </td>
+            <td class="celda">
+                {{code.ShortDescription}}
+            </td>
+            <td class="celda">
+                {{code.Description}}
+            </td>
+        </tr>
+    </table>
+</div>

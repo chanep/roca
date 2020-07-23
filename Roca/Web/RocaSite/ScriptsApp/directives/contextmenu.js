@@ -1,5 +1,5 @@
 ﻿(function (angular) {
-    var ngContextMenu = angular.module('directive.contextMenu', []);
+    var ngContextMenu = angular.module('myModule', []);
 
     ngContextMenu.directive('context', [
         function() {

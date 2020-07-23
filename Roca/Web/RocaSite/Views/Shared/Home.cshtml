@@ -1,5 +1,4 @@
-﻿@model Cno.Roca.BackEnd.Materials.Data.Users.User
-@{
+﻿@{
     Layout = null;
 }
 
@@ -25,13 +24,11 @@
 <body ng-app="app">
     <div id="header">
         <div id="title" class="title">{{RootModel.Title}}</div>
-        <div class="user">@Model.LongUserName</div>
+        <div class="user">{{RootModel.UserName}}</div>
     </div>
     <div id="body">
         <div id="menu">
-            @{
-                Html.RenderPartial("Menu", Model);
-            }
+            <div ng-include="'User/Menu'" ng-controller="User.Menu.Controller"></div>
         </div>
         <div id="content" style="width: 100%; height: 100%;">
             <div ui-view style="width: 100%; height: 100%;">

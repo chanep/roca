@@ -8,7 +8,8 @@ namespace Cno.Roca.Web.RocaSite
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             //filters.Add(new HandleErrorAttribute());
-            filters.Add(new ProjectSelectionFilterAttribute());
+            filters.Add(new CustomAuthenticationAttribute());
+            //filters.Add(new ProjectSelectionFilterAttribute());
             filters.Add(new ActionLoggerFilterAttribute());
             filters.Add(new ExceptionHandler());
         }

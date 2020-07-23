@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,15 +42,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InPageErrorException.cs" />
     <Compile Include="LookUp.cs" />
     <Compile Include="LookUpTypes.cs" />
+    <Compile Include="Materials\BasClass.cs" />
+    <Compile Include="Materials\BasClassAttribute.cs" />
+    <Compile Include="Materials\BasClassAttributeWithValue.cs" />
+    <Compile Include="Materials\BasCode.cs" />
+    <Compile Include="Materials\BasElement.cs" />
+    <Compile Include="Materials\BasCodeField.cs" />
+    <Compile Include="Materials\BasElementCable.cs" />
+    <Compile Include="Materials\BasElementEi.cs" />
+    <Compile Include="Materials\BasElementFactory.cs" />
+    <Compile Include="Materials\BasElementPiping.cs" />
+    <Compile Include="Materials\BasElementType.cs" />
+    <Compile Include="Materials\BasElementValve.cs" />
+    <Compile Include="Materials\BasFieldDefinition.cs" />
+    <Compile Include="Materials\BasFieldType.cs" />
     <Compile Include="Materials\EiMaterial.cs" />
     <Compile Include="Materials\EiMaterialDetails.cs" />
     <Compile Include="Materials\Material.cs" />
     <Compile Include="Materials\MaterialList.cs" />
     <Compile Include="Materials\MaterialListStatus.cs" />
+    <Compile Include="Materials\MatPiping.cs" />
     <Compile Include="Materials\MlItem.cs" />
     <Compile Include="Materials\PMaterial.cs" />
+    <Compile Include="Materials\SisepcElement.cs" />
     <Compile Include="Materials\Specialty.cs" />
     <Compile Include="Materials\TaggableAttribute.cs" />
     <Compile Include="Materials\TaggableType.cs" />

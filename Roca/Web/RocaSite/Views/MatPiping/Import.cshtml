@@ -1,0 +1,16 @@
+﻿<div class="container-fluid" >
+    <div class="row">
+        <div class="form-group" style="width: 200px;">
+            <label class="control-label small" for="Project">
+                Proyecto
+            </label>
+            <select class="form-control input-sm" ng-model="Model.ProjectId"
+                    ng-options="p.Id as p.Name for p in Model.Projects" ng-change="projectChanged()"></select>
+        </div>
+    </div>
+    <div class="row">
+        <button type="button" ng-click="import()" class="btn btn-primary" ng-disabled="!Model.ImportEnable">Importar</button>
+        <img ng-show="Model.Importing" src="@Url.Content("~/Content/Images/loading_small.gif")" style="margin-left: 0.5em;" />
+        <p style="color: green; font-weight: bold;" ng-show="Model.Imported">{{Model.MaterialCount}} registros importados</p>
+    </div>
+</div>

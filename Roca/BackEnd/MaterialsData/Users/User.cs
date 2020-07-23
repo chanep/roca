@@ -56,18 +56,9 @@ namespace Cno.Roca.BackEnd.Materials.Data.Users
             }
         }
 
-        public bool IsAdmin()
+        public bool IsInRole(string role)
         {
-            if (RoleList.Contains(Users.Roles.Admin))
-                return true;
-            return false;
-        }
-
-        public bool IsSuperAdmin()
-        {
-            if (RoleList.Contains(Users.Roles.SuperAdmin))
-                return true;
-            return false;
+            return RoleList.Contains(role);
         }
 
     }

@@ -66,6 +66,19 @@ namespace Cno.Roca.BackEnd.Materials.BL.Services
             return RocaUow.Specialties.Get(specialtyId);
         }
 
+        public Document AddDocument(Document document)
+        {
+            RocaUow.Documents.Add(document);
+            RocaUow.Commit();
+            return document;
+        }
+
+        public void UpdateDocument(Document document)
+        {
+            RocaUow.Documents.Update(document);
+            RocaUow.Commit();
+        }
+
         public Document GetDocument(int documentId)
         {
             return RocaUow.Documents.Get(documentId);

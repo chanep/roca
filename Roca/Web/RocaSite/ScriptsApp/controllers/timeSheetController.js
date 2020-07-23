@@ -1,17 +1,21 @@
 ﻿angular.module('app').controller('TimeSheet.Details.Controller',
-    ['$scope', '$filter', '$stateParams', 'TimeSheetService', function($scope, $filter, $stateParams, timeSheetService) {
+    ['$scope', '$stateParams', 'Utils', 'TimeSheetService', 'DocumentService', 'DialogService', 
+            function($scope, $stateParams, utils, timeSheetService, documentService, dialogService) {
+            
             $scope.RootModel.Title = "Carga de Horas";
             $scope.Model = {};
             var m = $scope.Model;
-            var MAX_HOURS = 40;
-            var CLOSED = 2;
+            m.TimeSheet = timeSheetService.createEmptyTimeSheet();
 
-            timeSheetService.getDetailsOptions()
+            var timeSheetId = null;
+            if ($stateParams.id != 0) timeSheetId = $stateParams.id;
+            timeSheetService.getDetailsOptions(timeSheetId)
                 .then(function (data) {
+                    orderProjects(data.Projects);
                     m.Options = data;
                     if ($stateParams.id == 0) {
-                        var date = new Date();
-                        getTimeSheetByDate(date.getTime());
+                        var date = utils.getNowTime();
+                        getTimeSheetByDate(date.getTime(), m.Options.Specialties[0].Id);
                     } else {
                         getTimeSheetById($stateParams.id);
                     }
@@ -23,10 +27,10 @@
             $scope.dateChanged = getTimeSheetByControlDate;
 
             $scope.itemProjectChanged = function(item) {
-                var p = getById(m.Options.Projects, item.SubprojectParentId);
+                var p = utils.findById(m.Options.Projects, item.SubprojectParentId);
                 item.Subprojects = p.Subprojects;
                 item.SubprojectId = item.Subprojects[0].Id;
-                if (!isNullOrUndefined(item.Document)) {
+                if (!utils.isNullOrUndefined(item.Document)) {
                     item.Document.TypeId = 0;
                     item.Document.DocNumber = '';
                     item.Document.Title = '';
@@ -34,7 +38,7 @@
             };
 
             $scope.itemSubprojectChanged = function(item) {
-                if (!isNullOrUndefined(item.Document)) {
+                if (!utils.isNullOrUndefined(item.Document)) {
                     item.Document.TypeId = 0;
                     item.Document.DocNumber = '';
                     item.Document.Title = '';
@@ -51,10 +55,13 @@
                     item.Document.TypeId = 0;
                     item.Document.DocNumber = '';
                     item.Document.Title = '';
-                }
+                } 
+            };
+
+            $scope.docSelected = function(item) {
                 var filter = createDocFilter(item);
-                return timeSheetService.getDocument(filter)
-                    .then(function (data) {
+                documentService.getDocument(filter)
+                    .then(function(data) {
                         if (data !== null) {
                             item.Document = data;
                             item.DocumentId = data.Id;
@@ -65,9 +72,15 @@
                     });
             };
 
+            $scope.taskChanged = function(item) {
+//                if (item.TaskId == 10001) {
+//                    item.Hours = 40;
+//                }
+            };
+
             $scope.subprojectVisible = function(item) {
-                if (isNullOrUndefined(item.Subprojects)) return true;
-                return item.Subprojects.length > 1;
+                if (utils.isNullOrUndefined(item.Subprojects)) return true;
+                return (item.Subprojects.length > 1 || item.Subprojects[0].ParentShortName != item.Subprojects[0].ShortName);
             };
 
 
@@ -80,66 +93,74 @@
                 $scope.Model.DatePickerOpened = true;
             };
 
-            $scope.isControlDateValid = isControlDateValid;
-            $scope.isHourValid = isHourValid;
-            $scope.isItemValid = isItemValid;
-            $scope.isItemAndHourValid = isItemAndHourValid;
-            $scope.isProjectValid = isProjectValid;
-            $scope.isTimeSheetValid = isTimeSheetValid;
+            $scope.isControlDateValid = function() { return m.TimeSheet.isControlDateValid(); };
+            $scope.isItemValid = function(item) { return m.TimeSheet.isItemValid(item); };
+            $scope.isItemAndHourValid = function(item) { return m.TimeSheet.isItemAndHourValid(item); };
+            $scope.isProjectValid = function(item) { return m.TimeSheet.isProjectValid(item); };
+            $scope.isTimeSheetValid = function() { return m.TimeSheet.isTimeSheetValid(); };
+            $scope.getDocItems = function() { return m.TimeSheet.getDocItems(); };
+            $scope.getTaskItems = function() { return m.TimeSheet.getTaskItems(); };
+            $scope.getTotalDocHours = function() { return m.TimeSheet.getTotalDocHours(); };
+            $scope.getTotalTaskHours = function () { return m.TimeSheet.getTotalTaskHours();};
+            $scope.getTotalHours = function () { return m.TimeSheet.getTotalHours();};
+            $scope.addEmptyDoc = function () { return m.TimeSheet.addEmptyDoc();};
+            $scope.addEmptyTask = function () { return m.TimeSheet.addEmptyTask();};
+            $scope.deleteItem = function (item) { return m.TimeSheet.deleteItem(item);};
+            $scope.canModify = function () { return m.TimeSheet.canModify();};
 
-            $scope.getDocItems = getDocItems;
-            $scope.getTaskItems = getTaskItems;
-            $scope.getTotalDocHours = getTotalDocHours;
-            $scope.getTotalTaskHours = getTotalTaskHours;
-            $scope.getTotalHours = getTotalHours;
-            $scope.getAutosuggestDoc = getAutosuggestDoc;
-
-            $scope.submit = submit;
-            $scope.addEmptyDoc = addEmptyDoc;
-            $scope.addEmptyTask = addEmptyTask;
-            $scope.deleteItem = deleteItem;
-
-            $scope.canCopyPreviousItems = function () { return getTotalHours() == 0; }
-            $scope.canModifyControlDate = function () { return ($stateParams.id == 0);}
-            $scope.canModify = canModify;
-            $scope.canCopyFromPrevious = function() {return getTotalHours() == 0;}
+            
+            $scope.canCopyPreviousItems = function () { return m.TimeSheet.getTotalHours() == 0; }
+            $scope.canModifyControlDate = function () { return ($stateParams.id == 0);}           
+            $scope.canCopyFromPrevious = function() {return m.TimeSheet.getTotalHours() == 0;}
+            $scope.isHourValid = function (hours) { return m.TimeSheet.isHourValid(hours);};
             $scope.copyFromPrevious = copyFromPrevious;
+            $scope.getAutosuggestDoc = getAutosuggestDoc;
+            $scope.submit = function() {
+                //if (m.TimeSheet.UserId == 38 || m.TimeSheet.UserId == 16) submitConfirmation();
+                //else submit();
+                submit();
+            };
 
-
+            function submitConfirmation() {
+                    dialogService.confirmationDialog("Planilla de Horas", "Esta seguro que los documentos no van a venir resometidos esta vez?")
+                    .then(function() {
+                            if (m.TimeSheet.UserId == 38) {
+                                return dialogService.confirmationDialog("Planilla de Horas", "Esta segurisimo??? Bajar el promedio del sector esta penado por la Solid Rock Control Consortium");
+                            }
+                            else return dialogService.confirmationDialog("Planilla de Horas", "Haga los documentos a conciencia, no le cause disgustos a Anibal");
+                            
+                        })
+                    .then(function() {
+                        submit();
+                    });
+            }
 
             function loadTimeSheet(data) {
                 m.TimeSheet = data;
-                var dateStr = $filter('jsonDate')(m.TimeSheet.ControlDate, 'yyyy-MM-dd');
-                var date = new Date(dateStr); 
-                m.TimeSheet.ControlDateDate = new Date(date.getTime() + 60000 * date.getTimezoneOffset());//si no se suma el offfset, da el dia anterior por el timezone
                 for (var i in m.TimeSheet.Items) {
                     var item = m.TimeSheet.Items[i];
-                    item.Subprojects = getById(m.Options.Projects, item.SubprojectParentId).Subprojects;
+                    item.Subprojects = utils.findById(m.Options.Projects, item.SubprojectParentId).Subprojects;
                 }
-                m.TimeSheet.Items = $filter('orderBy')(m.TimeSheet.Items, 'Id');
-                if (isNullOrUndefined(data.LeaderId) || data.LeaderId == 0) {
+                if (utils.isNullOrUndefined(m.TimeSheet.LeaderId) || m.TimeSheet.LeaderId == 0) {
                     selectLastLeader();
                 }
                 if (!m.Saved) {
-                    if (getDocItems().length == 0) {
-                        addEmptyDoc();
-                    }
-                    if (getTaskItems().length == 0) {
-                        addEmptyTask();
+                    if (m.TimeSheet.getDocItems().length === 0 && m.TimeSheet.getTaskItems().length === 0) {
+                        m.TimeSheet.addEmptyDoc();
+                        m.TimeSheet.addEmptyTask();
                     }
                 }
             }
 
             function getTimeSheetByControlDate() {
-                //var aux = m.TimeSheet.ControlDateStr.split('/');
-                //var date = new Date(aux[2], aux[1], aux[0]);
-                if (isControlDateValid()) {
+                if (m.TimeSheet.isControlDateValid()) {
                     var date = m.TimeSheet.ControlDateDate.getTime();
                     getTimeSheetByDate(date, m.TimeSheet.SpecialtyId);
                 }
             }
 
             function getTimeSheetByDate(date, specialtyId) {
+                m.Saved = false;
                 timeSheetService.getByDate(date, specialtyId)
                     .then(loadTimeSheet);
             }
@@ -152,106 +173,18 @@
             function getAutosuggestDoc(item, field) {
                 var filter = createDocFilter(item);
                 var filtersStr = angular.toJson(filter);
-                return timeSheetService.getAutosuggestDoc(field, item.Document[field], filtersStr)
+                return documentService.getAutosuggestDoc(field, item.Document[field], filtersStr)
                     .then(function (data) {
-                        return $filter('orderBy')(data, 'value');
+                        return utils.orderBy(data, 'value');
                     });
             };
-
-            function getDocItems() {
-                var docs = [];
-                if (angular.isDefined(m.TimeSheet)) {
-                    angular.forEach(m.TimeSheet.Items, function (item) {
-                        if (item.Document !== null) this.push(item);
-                    }, docs);
-                }
-                return docs;
-            }
-
-            function getTaskItems() {
-                var tasks = [];
-                if (angular.isDefined(m.TimeSheet)) {
-                    angular.forEach(m.TimeSheet.Items, function (item) {
-                        if (item.TaskId !== null) this.push(item);
-                    }, tasks);
-                }
-                return tasks;
-            }
-
-            function getTotalTaskHours() {
-                var items = getTaskItems();
-                var hh = 0;
-                for (var index in items) {
-                    if (isItemAndHourValid(items[index])) hh += items[index].Hours;
-                }
-                return hh;
-            }
-
-            function getTotalDocHours() {
-                var items = getDocItems();
-                var hh = 0;
-                for (var index in items) {
-                    if (isItemAndHourValid(items[index])) hh += items[index].Hours;
-                }
-                return hh;
-            }
-
-            function getTotalHours() { return getTotalDocHours() + getTotalTaskHours(); }
-
-            function addEmptyItem() {
-                var item = {
-                    Id: 0,
-                    TimeSheetId: m.TimeSheet.Id,
-                    SubprojectId: 0,
-                    SubprojectParentId: 0,
-                    TaskId: null,
-                    Document: null,
-                    Hours: 0
-                }
-                copyPreviousProject(item, m.TimeSheet.Items);
-                return item;
-            }
-
-            function addEmptyDoc() {
-                var item = addEmptyItem();
-                item.Document = { Id: 0, TypeId: 0, DocNumber: '', Title: '' };
-                m.TimeSheet.Items.push(item);
-            }
-
-            function addEmptyTask() {
-                var item = addEmptyItem();
-                item.TaskId = 0;
-                m.TimeSheet.Items.push(item);
-            }
-
-            function deleteItem(item) {
-                for (var i = 0; i < m.TimeSheet.Items.length; i++)
-                    if (m.TimeSheet.Items[i] === item) {
-                        m.TimeSheet.Items.splice(i, 1);
-                        break;
-                    }
-            }
-
-            function copyPreviousProject(item, prevItems) {
-                if (prevItems.length > 0) {
-                    for (var i = prevItems.length - 1; i >= 0; i--) {
-                        var lastItem = prevItems[i];
-                        if (lastItem.SubprojectParentId != 0) {
-                            item.SubprojectId = lastItem.SubprojectId;
-                            item.Subprojects = lastItem.Subprojects;
-                            item.SubprojectParentId = lastItem.SubprojectParentId;
-                            return;
-                        }
-                    }
-                }
-            }
 
             function submit() {
                 $scope.tsForm.$setPristine();
                 var items = [];
                 for (var i in m.TimeSheet.Items) {
                     var item = m.TimeSheet.Items[i];
-                    if (isItemAndHourValid(item)) items.push(item);
+                    if (m.TimeSheet.isItemAndHourValid(item)) items.push(item);
                 }
                 m.TimeSheet.Items = items;
                 timeSheetService.save(m.TimeSheet)
@@ -260,6 +193,13 @@
                         loadTimeSheet(data);
                     });
             };
+
+            function orderProjects(projects) {
+                for (var i in projects) {
+                    var p = projects[i];
+                    p.Subprojects = utils.orderBy(p.Subprojects, 'Id');
+                }
+            }
 
             function createDocFilter(item) {
                 var filter = {
@@ -311,22 +251,19 @@
                 }
             }
 
-            function canModify() {
-                //if ($stateParams.id == 0) return true;
-                if (isNullOrUndefined(m.TimeSheet) || isNullOrUndefined(m.TimeSheet.ControlDateDate)) return false;
-                if (m.TimeSheet.Status == CLOSED) return false;
-                var date = m.TimeSheet.ControlDateDate.getTime();
-                var minDate = new Date();
-                minDate.setTime(minDate.getTime() - (1000 * 60 * 60 * 24 * 8));
-                if (date < minDate) return false;
-                return true;
-            }
 
             function copyFromPrevious() {
                 timeSheetService.getLast(m.TimeSheet.SpecialtyId)
                     .then(function (data) {
                         if (data != null) {
                             data.ControlDate = m.TimeSheet.ControlDate;
+                            data.ControlDateDate = m.TimeSheet.ControlDateDate;
+                            data.Id = 0;
+                            for (var i in data.Items) {
+                                var item = data.Items[i];
+                                item.TimeSheetId = 0;
+                                item.Id = 0;
+                            }
                             loadTimeSheet(data);
                         }
                     });
@@ -341,67 +278,6 @@
                     });
             }
 
-            function isControlDateValid() {
-                if (angular.isUndefined(m.TimeSheet) || angular.isUndefined(m.TimeSheet.ControlDateDate)) return false;
-                var date = m.TimeSheet.ControlDateDate.getTime();
-                if (isNaN(date)) return false;
-                var maxDate = new Date();
-                maxDate.setTime(maxDate.getTime() + 1000 * 60 * 60 * 24 * 14);
-                if (date > maxDate) return false;
-                var minDate = new Date(2014, 1, 1);
-                if (date < minDate) return false;
-                return true;
-            }
-
-            function isItemAndHourValid(item) {
-                if (!isItemValid(item)) return false;
-                if (!isHourValid(item.Hours)) return false;
-                if (item.Hours < 1) return false;
-                return true;
-            }
-
-            function isItemValid(item) {
-                if (isNullOrUndefined(item.SubprojectId) || item.SubprojectId == 0) return false;
-                if (item.TaskId == 0) return false;
-                if (item.Document !== null && item.Document.Id == 0) return false;
-                return true;
-            }
-
-
-            function isHourValid(hours) {
-                if (angular.isUndefined(hours)) return false;
-                if (isNaN(hours)) return false;
-                if (Math.round(hours) != hours) return false;
-                if (hours < 0 || hours > MAX_HOURS) return false;
-                return true;
-            }
-
-            function isTimeSheetValid() {
-                if (isNullOrUndefined(m.TimeSheet)) return false;
-                if (!isControlDateValid()) return false;
-                if (isNullOrUndefined(m.TimeSheet.LeaderId)) return false;
-                var totalHours = getTotalHours();
-                if (totalHours > MAX_HOURS || totalHours == 0) return false;
-                return true;
-            }
-
-            function isProjectValid(item) {
-                if (isNullOrUndefined(item.SubprojectId) || item.SubprojectId == 0) return false;
-                return true;
-            }
-
-            function getById(entities, id) {
-                var aux = entities.filter(function(e) {
-                    return e.Id == id;
-                });
-                return aux[0];
-            }
-
-            function isNullOrUndefined(obj) {
-                if (angular.isUndefined(obj) || obj === null) return true;
-                return false;
-            }
-
         }
     ])
     .controller('TimeSheet.List.Controller', [
@@ -411,6 +287,7 @@
             var m = $scope.Model;
             m.Options = {};
             m.Filter = {};
+            var pageSize = 25;
 
             (function initGrid() {
                 var columnDefs = [
@@ -421,14 +298,34 @@
                     { displayName: "", field: "Id", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "30px", cellTemplate: gridService.viewLinkTemplate("#/TimeSheet/Details/") }
                 ];
 
+                m.footerVisible = false;
+                m.totalServerItems = 0;
+                m.pagingOptions = {
+                    pageSizes: [pageSize, pageSize * 2, pageSize * 4],
+                    pageSize: pageSize,
+                    currentPage: 1
+                };
+
                 m.gridOptions = {
-                    data: "Model.TimeSheets",
+                    data: "Model.PagedTimeSheets",
                     enableRowSelection: false,
                     enableHighlighting: true,
+                    virtualizationThreshold: 100,
+                    enablePaging: true,
+                    showFooter: false,
+                    footerTemplate: gridService.footerTemplate('Model.footerVisible'),
+                    pagingOptions: m.pagingOptions,
+                    totalServerItems: 'Model.totalServerItems',
                     columnDefs: columnDefs
                 };
 
+                $scope.$watch('Model.pagingOptions', function(newVal, oldVal) {
+                        refreshPagedList();
+                }, true);
+
             })();
+
+            
 
             timeSheetService.getListOptions()
                 .then(function(data) {
@@ -453,10 +350,24 @@
                 getList();
             }
 
+
+            //client side paging
+            function refreshPagedList() {
+                if (angular.isDefined(m.TimeSheets)) {
+                    var po = m.pagingOptions;
+                    m.PagedTimeSheets = m.TimeSheets.slice((po.currentPage - 1) * po.pageSize, po.currentPage * po.pageSize);
+                }
+            }
+
+
             function getList() {
                 timeSheetService.getAll(m.Filter)
                     .then(function(data) {
                         m.TimeSheets = data;
+                        m.totalServerItems = data.length;
+                        m.footerVisible = (m.totalServerItems > m.pagingOptions.pageSize);
+                        m.pagingOptions.currentPage = 1;
+                        refreshPagedList();
                 });
             }
 
@@ -593,6 +504,7 @@
                     enableRowSelection: false,
                     enableHighlighting: true,
                     columnDefs: columnDefs,
+                    virtualizationThreshold: 100,
                     sortInfo: { fields: ['User.FullName'], directions: ['asc'] }
                 };
 
@@ -629,6 +541,8 @@
             var m = $scope.Model;
 
             m.Report = 'ByDoc';
+            m.Data = {};
+
             var columnDefsSet = {};
 
             m.Filter = {};
@@ -638,8 +552,10 @@
         
 
             var reportLoader = {
-                ByDoc: loadByDocReport,          
+                ByDoc: loadByDocReport,    
+                ByDocUser: loadByDocUserReport,       
                 ByTask: loadByTaskReport,
+                ByTaskUser: loadByTaskUserReport,
                 BySpecialty: loadBySpecialtyReport,
                 ByProject: loadByProjectReport
             };
@@ -654,9 +570,27 @@
                     { displayName: "HH", field: "Hours", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "60px" }
                 ];
 
+                columnDefsSet.ByDocUser = [
+                    { displayName: "Proyecto", field: "Document.Project.ParentShortName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "90px" },
+                    { displayName: "Subproyecto", field: "Document.Project.ShortName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "90px" },
+                    { displayName: "Disciplina", field: "Document.SpecialtyName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "95px" },
+                    { displayName: "Persona", field: "UserFullName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "130px" },
+                    { displayName: "Codigo", field: "Document.DocNumber", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "210px" },
+                    { displayName: "Titulo", field: "Document.Title", cellClass: "ngGridCell", headerClass: "ngGridHeader" },
+                    { displayName: "HH", field: "Hours", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "60px" }
+                ];
+
                 columnDefsSet.ByTask = [
                     { displayName: "Proyecto", field: "Subproject.ParentShortName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "90px" },
                     { displayName: "Subproyecto", field: "Subproject.ShortName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "90px" },
+                    { displayName: "Actividad", field: "Task.Value", cellClass: "ngGridCell", headerClass: "ngGridHeader" },
+                    { displayName: "HH", field: "Hours", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "60px" }
+                ];
+
+                columnDefsSet.ByTaskUser = [
+                    { displayName: "Proyecto", field: "Subproject.ParentShortName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "90px" },
+                    { displayName: "Subproyecto", field: "Subproject.ShortName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "90px" },
+                    { displayName: "Persona", field: "UserFullName", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "130px" },
                     { displayName: "Actividad", field: "Task.Value", cellClass: "ngGridCell", headerClass: "ngGridHeader" },
                     { displayName: "HH", field: "Hours", cellClass: "ngGridCell", headerClass: "ngGridHeader", width: "60px" }
                 ];
@@ -676,14 +610,29 @@
 
                 m.columnDefs = columnDefsSet[m.Report];
 
-                m.gridOptions = {
+                m.gridOptions = {};
+                
+                var gridOptionsCommon = {
                     data: "Model.Data",
                     enableRowSelection: false,
                     enableHighlighting : true,
-                    columnDefs: 'Model.columnDefs',
+                    virtualizationThreshold: 100,
                     sortInfo: { fields: ['Hours'], directions: ['desc'] },
-                    plugins: [new ngGridCsvExportPlugin()]
+                    plugins: [new ngGridCsvExportPlugin({containerPanel: '.exportLinkContainer', linkLabel: 'CSV Export (solo en Chrome)'})]
                 };
+
+                m.gridOptions.ByDoc = angular.copy(gridOptionsCommon);
+                m.gridOptions.ByDoc.columnDefs = columnDefsSet.ByDoc;
+                m.gridOptions.ByDocUser = angular.copy(gridOptionsCommon);
+                m.gridOptions.ByDocUser.columnDefs = columnDefsSet.ByDocUser;
+                m.gridOptions.ByTask = angular.copy(gridOptionsCommon);
+                m.gridOptions.ByTask.columnDefs = columnDefsSet.ByTask;
+                m.gridOptions.ByTaskUser = angular.copy(gridOptionsCommon);
+                m.gridOptions.ByTaskUser.columnDefs = columnDefsSet.ByTaskUser;
+                m.gridOptions.BySpecialty = angular.copy(gridOptionsCommon);
+                m.gridOptions.BySpecialty.columnDefs = columnDefsSet.BySpecialty;
+                m.gridOptions.ByProject = angular.copy(gridOptionsCommon);
+                m.gridOptions.ByProject.columnDefs = columnDefsSet.ByProject;
 
             })();
 
@@ -704,40 +653,54 @@
             }
 
             function loadByDocReport() {
+                m.Data = [];
                 timeSheetService.getByDocReport(m.Filter)
                 .then(function (data) {
-                    updateColumnDefs();
+                    m.Data = data;
+                });
+            }
+
+            function loadByDocUserReport() {
+                m.Data = [];
+                timeSheetService.getByDocUserReport(m.Filter)
+                .then(function (data) {
                     m.Data = data;
                 });
             }
 
             function loadByTaskReport() {
+                m.Data = [];
                 timeSheetService.getByTaskReport(m.Filter)
                 .then(function (data) {
-                    updateColumnDefs();
+                    m.Data = data;
+                });
+            }
+
+            function loadByTaskUserReport() {
+                m.Data = [];
+                timeSheetService.getByTaskUserReport(m.Filter)
+                .then(function (data) {
                     m.Data = data;
                 });
             }
 
             function loadBySpecialtyReport() {
+                m.Data = [];
                 timeSheetService.getBySpecialtyReport(m.Filter)
                 .then(function (data) {
-                    updateColumnDefs();
                     m.Data = data;
                 });
             }
 
             function loadByProjectReport() {
+                m.Data = [];
                 timeSheetService.getByProjectReport(m.Filter)
                 .then(function (data) {
-                    updateColumnDefs();
                     m.Data = data;
                 });
             }
 
-            function updateColumnDefs() {
-                m.columnDefs = columnDefsSet[m.Report];
-            }
-
         }
-    ]);
+    ])
+    
+    ;

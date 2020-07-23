@@ -38,6 +38,7 @@ namespace RocaSite
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
                         "~/Scripts/angular-animate.js",
+                        "~/Scripts/angular-sanitize.js",
                         //"~/Scripts/angular-resource.js",
                         //"~/Scripts/angular-route.js",
                         "~/Scripts/angular-ui-router.js",
@@ -46,8 +47,10 @@ namespace RocaSite
                         "~/Scripts/ng-grid.js",
                         "~/Scripts/ng-grid-layout.js",
                         "~/Scripts/ng-grid-csv-export.js",
+                        "~/Scripts/ng-grid-flexible-height.js",
                         "~/Scripts/angular-ui/ui-utils.js",
-                        "~/Scripts/angular-ui/ui-utils-ieshiv.js"
+                        "~/Scripts/angular-ui/ui-utils-ieshiv.js",
+                        "~/Scripts/smart-table.js"
                         ));
 
 

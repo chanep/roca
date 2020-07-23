@@ -34,13 +34,5 @@ namespace Cno.Roca.BackEnd.ExcelToolsTest
             return ml;
         }
 
-        [TestMethod]
-        public void CreateMaterialListBookTest()
-        {
-            string template = @"TemplateLm.xlsx";
-            string output = "mongo.xlsx";
-            var ml = CreateMaterialList();
-            ExcelCreator.CreateMaterialListBook(ml, template, output);
-        }
     }
 }

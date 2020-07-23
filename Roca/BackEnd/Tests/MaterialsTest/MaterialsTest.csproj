@@ -33,13 +33,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Clutch, Version=1.0.5186.26482, Culture=neutral, PublicKeyToken=3f1ee76c0d32d23b, processorArchitecture=MSIL">
+    <Reference Include="Clutch, Version=1.0.5302.28611, Culture=neutral, PublicKeyToken=3f1ee76c0d32d23b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Clutch.1.0.5186.26482\lib\net40\Clutch.dll</HintPath>
+      <HintPath>..\..\..\packages\Clutch.1.0.5302.28611\lib\net40\Clutch.dll</HintPath>
     </Reference>
-    <Reference Include="Clutch.Diagnostics.EntityFramework, Version=1.0.5186.27187, Culture=neutral, PublicKeyToken=3f1ee76c0d32d23b, processorArchitecture=MSIL">
+    <Reference Include="Clutch.Diagnostics.EntityFramework, Version=1.0.5302.28614, Culture=neutral, PublicKeyToken=3f1ee76c0d32d23b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Clutch.Diagnostics.EntityFramework.1.0.5186.27187\lib\net40\Clutch.Diagnostics.EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\packages\Clutch.Diagnostics.EntityFramework.1.0.5302.28614\lib\net40\Clutch.Diagnostics.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\..\..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
@@ -59,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Bas\BasCodeTest.cs" />
+    <Compile Include="Bas\BasElementFactoryTest.cs" />
+    <Compile Include="Bas\BasElementRepositoryTest.cs" />
+    <Compile Include="Bas\BasElementTest.cs" />
+    <Compile Include="Bas\CodeConverterTest.cs" />
+    <Compile Include="Bas\CodeConverter.cs" />
     <Compile Include="EfListener.cs" />
     <Compile Include="Repositories\MaterialListRepositoryTest.cs" />
     <Compile Include="Repositories\MaterialRepositoryTest.cs" />
@@ -69,6 +75,7 @@
     <Compile Include="Services\MaterialServiceTest.cs" />
     <Compile Include="Services\TaggableTypeServiceTest.cs" />
     <Compile Include="Services\TimeSheetServiceTest.cs" />
+    <Compile Include="Services\MatPipingServiceTest.cs" />
     <Compile Include="TestHelper.cs" />
     <Compile Include="Repositories\UserRepositoryTest.cs" />
   </ItemGroup>
@@ -86,10 +93,6 @@
     <ProjectReference Include="..\..\CoreData\CoreData.csproj">
       <Project>{303527C5-AB5E-4A49-85EA-0DBD9F2AAB95}</Project>
       <Name>CoreData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Core\Core.csproj">
-      <Project>{8B971CD3-4D90-42A9-8BFF-C8D49F7EBA4C}</Project>
-      <Name>Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\MaterialsBL\MaterialsBL.csproj">
       <Project>{8674056C-B851-48AB-BFCA-45C6D058E289}</Project>

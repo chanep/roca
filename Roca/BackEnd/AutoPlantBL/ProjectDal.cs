@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cno.Roca.BackEnd.AutoPlant.Data;
-using Cno.Roca.Core.Data;
-using Cno.Roca.Core.Entity;
 using Oracle.DataAccess.Client;
 
 namespace Cno.Roca.BackEnd.AutoPlant.BL
 {
-    public class ProjectDal : Dal<string, Project>
+    public class ProjectDal
     {
-
-        public ProjectDal() : base(DbConnManagerFactory.GetDbConnectionManager())
+        private OracleConnection _connection;
+        protected Dictionary<string, string> MapeoDb;
+        public ProjectDal()
         {
             MapeoDb = new Dictionary<string, string>()
 						{
@@ -24,13 +23,20 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
 						};
         }
 
-
-        public override Project Get(string id)
+        protected void OpenConnection()
         {
-            throw new NotImplementedException();
+            _connection = DbConnectionManager.GetAutoplantConnection();
+            _connection.Open();
         }
 
-        public override IList<Project> GetAll()
+        protected void CloseConnection(OracleConnection connection)
+        {
+            if (connection != null)
+                connection.Close();
+        }
+
+
+        public IList<Project> GetAll()
         {
             OpenConnection();
             OracleCommand command = null;
@@ -39,9 +45,7 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
             {
                 command = BuildGetAllCommand();
                 command.Connection = _connection;
-                LogCommand(command);
                 dataReader = command.ExecuteReader();
-                LogEndCommand(command);
                 var entities = BuildEntities(dataReader);
                 return entities;
             }
@@ -55,24 +59,10 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
                 {
                     command.Dispose();
                 }
-                CloseConnection();
+                CloseConnection(_connection);
             }
         }
 
-        public override Project Create(Project entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Update(Project entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void Delete(Project entity)
-        {
-            throw new NotImplementedException();
-        }
 
         private OracleCommand BuildGetAllCommand()
         {

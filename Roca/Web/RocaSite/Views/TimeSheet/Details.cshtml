@@ -42,11 +42,11 @@
         width: 60px;
     }
     .ifProject {
-        width: 100px;
+        width: 110px;
         margin-right: 5px;
     }
     .ifSubproject {
-        width: 100px;
+        width: 110px;
         margin-right: 15px;
         min-height: 1px;
     }
@@ -174,29 +174,29 @@
         <div class="row form-group" ng-repeat="item in getDocItems()" ng-class="{'has-success': isItemAndHourValid(item)}">
             <ng-form name="docItemForm">
                 <div class="itemField ifProject">
-                    <select class="form-control input-sm" tabindex="{{$index*6 + 4}}"
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 4}}" ie-select-fix
                             popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocProjectHelp}}" popover-trigger="mouseenter"
                             ng-model="item.SubprojectParentId" ng-options="p.Id as p.ShortName for p in Model.Options.Projects" ng-change="itemProjectChanged(item)"></select>
                 </div>
                 <div class="itemField ifSubproject">
-                    <select class="form-control input-sm" tabindex="{{$index*6 + 5}}"
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 5}}" ie-select-fix
                             popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocProjectHelp}}" popover-trigger="mouseenter"
-                            ng-show="subprojectVisible(item)" ng-model="item.SubprojectId" ng-options="p.Id as p.ShortName for p in item.Subprojects" ng-change="itemSubprojectChanged(item)"></select>
+                            ng-show="subprojectVisible(item)" ng-model="item.SubprojectId" ng-options="p.Id as p.ShortName for p in item.Subprojects | orderBy:'ShortName'" ng-change="itemSubprojectChanged(item)"></select>
                 </div>
                 <div class="itemField ifDocType">
-                    <select class="form-control input-sm" ng-model="item.Document.TypeId" ng-disabled="!isProjectValid(item)" tabindex="{{$index*6 + 6}}" ng-options="t.Id as t.Code for t in Model.Options.DocTypes | orderBy:'Code'" ng-change="docItemChanged(item, 'TypeId')"></select>
+                    <select class="form-control input-sm" ie-select-fix ng-model="item.Document.TypeId" ng-disabled="!isProjectValid(item)" tabindex="{{$index*6 + 6}}" ng-options="t.Id as t.Code for t in Model.Options.DocTypes | orderBy:'Code'" ng-change="docItemChanged(item, 'TypeId')"></select>
                 </div>
                 <div class="itemField ifDocNumber">
                     <input class="form-control input-sm" ng-model="item.Document.DocNumber" ng-disabled="!isProjectValid(item)" name="docNumber" tabindex="{{$index*6 + 7}}"
                            popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocHelp}}" popover-trigger="mouseenter"
                            data-typeahead="term.value for term in getAutosuggestDoc(item, 'DocNumber') | filter:$viewValue"
-                           data-typeahead-on-select="docItemChanged(item, 'DocNumber')" ng-change="docItemChanged(item, 'DocNumber')" data-typeahead-wait-ms="250" />
+                           data-typeahead-on-select="docSelected(item)" ng-change="docItemChanged(item, 'DocNumber')" data-typeahead-wait-ms="250" />
                 </div>
                 <div class="itemField ifDocTitle">
                     <input class="form-control input-sm" ng-model="item.Document.Title" ng-disabled="!isProjectValid(item)" name="title" tabindex="{{$index*6 + 8}}"
                            popover-placement="top" popover-title="{{Model.DocHelpTitle}}" popover="{{Model.DocHelp}}" popover-trigger="mouseenter"
                            data-typeahead=" term.value for term in getAutosuggestDoc(item, 'Title' ) | filter:$viewValue"
-                           data-typeahead-on-select="docItemChanged(item, 'Title')" ng-change="docItemChanged(item, 'Title')" data-typeahead-wait-ms="250" />
+                           data-typeahead-on-select="docSelected(item)" ng-change="docItemChanged(item, 'Title')" data-typeahead-wait-ms="250" />
                 </div>
                 <div class="itemField ifHours" ng-class="{'has-error': docItemForm.hours.$invalid}">
                     <input class="form-control input-sm" ng-model="item.Hours" ng-disabled="!isItemValid(item)"
@@ -232,17 +232,17 @@
         <div class="row form-group" ng-repeat="item in getTaskItems()" ng-class="{'has-success': isItemAndHourValid(item)}">
             <ng-form name="taskItemForm">
                 <div class="itemField ifProject">
-                    <select class="form-control input-sm" tabindex="{{$index*6 + 4}}"
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 4}}" ie-select-fix
                             popover-placement="top" popover-title="{{Model.TaskHelpTitle}}" popover="{{Model.TaskProjectHelp}}" popover-trigger="mouseenter"
                             ng-model="item.SubprojectParentId" ng-options="p.Id as p.ShortName for p in Model.Options.Projects" ng-change="itemProjectChanged(item)"></select>
                 </div>
                 <div class="itemField ifSubproject">
-                    <select class="form-control input-sm" tabindex="{{$index*6 + 5}}"
+                    <select class="form-control input-sm" tabindex="{{$index*6 + 5}}" ie-select-fix
                             popover-placement="top" popover-title="{{Model.TaskHelpTitle}}" popover="{{Model.TaskProjectHelp}}" popover-trigger="mouseenter"
-                            ng-show="subprojectVisible(item)" ng-model="item.SubprojectId" ng-options="p.Id as p.ShortName for p in item.Subprojects" ng-change="itemSubprojectChanged(item)"></select>
+                            ng-show="subprojectVisible(item)" ng-model="item.SubprojectId" ng-options="p.Id as p.ShortName for p in item.Subprojects | orderBy:'ShortName'" ng-change="itemSubprojectChanged(item)"></select>
                 </div>
                 <div class="itemField ifTask">
-                    <select class="form-control input-sm" ng-model="item.TaskId" ng-disabled="!isProjectValid(item)" tabindex="{{(getDocItems().length*6)+($index*4) + 6}}" ng-options="t.Id as t.Value for t in Model.Options.Tasks | orderBy:'Id'"></select>
+                    <select class="form-control input-sm" ie-select-fix ng-model="item.TaskId" ng-change="taskChanged(item)" ng-disabled="!isProjectValid(item)" tabindex="{{(getDocItems().length*6)+($index*4) + 6}}" ng-options="t.Id as t.Value for t in Model.Options.Tasks | orderBy:'Value'"></select>
                 </div>
                 <div class="itemField ifHours" ng-class="{'has-error': taskItemForm.hours.$invalid}">
                     <input class="form-control input-sm" ng-model="item.Hours" ng-disabled="!isItemValid(item)" tabindex="{{(getDocItems().length*6)+($index*4) + 7}}" name="hours" type="number" max="40" min="0" ui-validate="'isHourValid($value)'" />

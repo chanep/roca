@@ -4,21 +4,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace Cno.Roca.CoreData.Entity
 {
     [Serializable]
-    [DataContract]
     public abstract class Entity<K> : Entity
     {
         public K Id { get; set; }
 
     }
 
-
     [Serializable]
-	[DataContract]
 	public abstract class Entity : ICloneable, IEditableObject
     {
         private const int MaxToStringDepth = 1;

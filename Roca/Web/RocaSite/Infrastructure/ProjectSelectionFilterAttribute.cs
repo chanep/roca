@@ -16,7 +16,7 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controllerType = filterContext.ActionDescriptor.ControllerDescriptor.ControllerType;
-            if (controllerType != typeof(LoginController) && 
+            if (controllerType != typeof(UserController) && 
                 controllerType != typeof(ErrorController) && 
                 controllerType != typeof(ProjectController) &&
                 controllerType != typeof(AutoplantController) &&

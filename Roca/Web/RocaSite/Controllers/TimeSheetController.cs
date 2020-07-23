@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -73,7 +74,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
 
         public JsonResult GetLast(int specialtyId)
         {
-            var user = SessionManager.GetLoggedtUser();
+            var user = SessionManager.GetCurrentUser();
             var ts = RocaService.TimeSheetService.GetLast(user.Id, specialtyId);
             TimeSheetDto dto = null;
             if (ts != null)
@@ -90,14 +91,22 @@ namespace Cno.Roca.Web.RocaSite.Controllers
 
 
 
-        public JsonResult GetDetailsOptions()
+        public JsonResult GetDetailsOptions(int? timeSheetId)
         {
             var leaders = RocaService.CommonService.GetUsersByRole(Roles.Leader);
             var projects = RocaService.CommonService.GetAllRootProjects();
             var projDtos = ProjectDto.CreateList(projects);
             var docTypes = RocaService.CommonService.GetAllLookUpsByType(LookUpTypes.DocType);
             var tasks = RocaService.CommonService.GetAllLookUpsByType(LookUpTypes.TsTask);
-            var specialties = SessionManager.GetLoggedtUser().Specialties;
+            IEnumerable<Specialty> specialties = null;
+            if (timeSheetId == null)
+                specialties = SessionManager.GetCurrentUser().Specialties;
+            else
+            {
+                var ts = RocaService.TimeSheetService.Get(timeSheetId.Value);
+                var user = RocaService.CommonService.GetUser(ts.UserId);
+                specialties = user.Specialties;
+            }
             var options = new { Projects = projDtos, DocTypes = docTypes, Tasks = tasks, Leaders = leaders, Specialties = specialties };
             return Json(options, JsonRequestBehavior.AllowGet);
         }
@@ -106,41 +115,27 @@ namespace Cno.Roca.Web.RocaSite.Controllers
         {
             IEnumerable<User> users = null;
             IEnumerable<Specialty> specialties = null;
-            var user = SessionManager.GetLoggedtUser();
-            if (user.IsAdmin())
+            var user = SessionManager.GetCurrentUser();
+            if (user.IsInRole(Roles.Admin))
             {
                 users = RocaService.CommonService.GetAllUsers();
                 specialties = RocaService.CommonService.GetAllSpecialties();
             }
+            else if(user.RoleList.Contains(Roles.Leader))
+            {
+                users = RocaService.CommonService.GetAllUsers()
+                            .Where(u => u.Specialties.Select(s => s.Id).Intersect(user.Specialties.Select(s2 => s2.Id)).Any());
+                specialties = SessionManager.GetCurrentUser().Specialties;
+            }
             else
             {
                 users = new List<User>() {user};
-                specialties = SessionManager.GetLoggedtUser().Specialties;
+                specialties = SessionManager.GetCurrentUser().Specialties;
             }
             var options = new { Users = users, Specialties = specialties };
             return Json(options, JsonRequestBehavior.AllowGet);
         }
 
-
-        public JsonResult GetAutosuggestDoc(string property, string term, string filtersStr)
-        {
-            var filter = JsonConvert.DeserializeObject<DocumentFilter>(filtersStr);
-            var list = RocaService.CommonService.GetDocuments(filter);
-
-            var suggestList = list.Select(d => new { value = GetPropertyString(d, property) })
-                                  .Distinct()
-                                  .ToArray();
-            return Json(suggestList, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult GetDocument(DocumentFilter filter)
-        {
-            var docs = RocaService.CommonService.GetDocuments(filter, true).ToList();
-            Document doc = null;
-            if (docs.Count() == 1)
-                doc = docs.First();
-            return Json(doc, JsonRequestBehavior.AllowGet);
-        }
 
         public JsonResult GetDefaulters()
         {
@@ -168,10 +163,24 @@ namespace Cno.Roca.Web.RocaSite.Controllers
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetByDocUserReport(TimeSheetItemFilter filter)
+        {
+            var items = RocaService.TimeSheetService.GetAllDocItems(filter).ToList();
+            var report = items.GroupBy(i => new{i.Document, i.TimeSheet.User}).Select(g => new { Document = new DocumentDto(g.Key.Document), UserFullName = g.Key.User.FullName,  Hours = g.Sum(t => t.Hours) });
+            return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetByTaskReport(TimeSheetItemFilter filter)
         {
             var items = RocaService.TimeSheetService.GetAllTaskItems(filter).ToList();
             var report = items.GroupBy(i => new{ i.Subproject, i.Task}).Select(g => new { Subproject = new ProjectDto(g.Key.Subproject), g.Key.Task , Hours = g.Sum(t => t.Hours) });
+            return Json(report, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetByTaskUserReport(TimeSheetItemFilter filter)
+        {
+            var items = RocaService.TimeSheetService.GetAllTaskItems(filter).ToList();
+            var report = items.GroupBy(i => new { i.Subproject, i.TimeSheet.User, i.Task }).Select(g => new { Subproject = new ProjectDto(g.Key.Subproject), UserFullName = g.Key.User.FullName, g.Key.Task, Hours = g.Sum(t => t.Hours) });
             return Json(report, JsonRequestBehavior.AllowGet);
         }
 
@@ -193,9 +202,17 @@ namespace Cno.Roca.Web.RocaSite.Controllers
         [CustomAuthorize(Roles=Roles.Write)]
         public JsonResult Save(TimeSheetDto timeSheet)
         {
-            if(LoggedUser.Id != timeSheet.UserId)
+            if (LoggedUser.Id != timeSheet.UserId)
                 throw new RocaException("No se puede salvar una timesheet de otro usuario");
             var ts = timeSheet.GetEntity();
+
+            //ts.Id = 0;
+            //foreach (var item in ts.Items)
+            //{
+            //    item.TimeSheetId = 0;
+            //    item.Id = 0;
+            //}
+
             ts = RocaService.TimeSheetService.Save(ts);
             ts = RocaService.TimeSheetService.GetFull(ts.Id);
             var dto = new TimeSheetDto(ts);
@@ -240,13 +257,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
             return ts;
         }
 
-        private string GetPropertyString(Document doc, string property)
-        {
-            var value = doc.GetType().GetProperty(property).GetValue(doc, null);
-            if (value == null)
-                return "";
-            return value.ToString();
-        }
+
 
     }
 }

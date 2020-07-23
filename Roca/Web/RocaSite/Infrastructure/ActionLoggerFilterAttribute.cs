@@ -26,9 +26,11 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
 
         private void LogAction(ActionExecutedContext context)
         {
-            var user = DependencyResolver.Current.GetService<ISessionManager>().GetLoggedtUser();
+            var user = DependencyResolver.Current.GetService<ISessionManager>().GetCurrentUser();
 
-            var userName = user.UserName;
+            var userName = "NotLogged";
+            if(user != null)
+                userName = user.UserName;
             var controllerName = context.ActionDescriptor.ControllerDescriptor.ControllerName;
             var actionName = context.ActionDescriptor.ActionName;
 
@@ -56,15 +58,16 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
             }
             msg.AppendLine();
 
-            
 
-            context.HttpContext.Request.InputStream.Seek(0, 0);
-            var reader = new StreamReader(context.HttpContext.Request.InputStream);
-            var inputString = reader.ReadToEnd();
-            context.HttpContext.Request.InputStream.Seek(0, 0);
-            msg.AppendFormat("Request Body: {0}", inputString, Environment.NewLine);
-            msg.AppendLine();
-
+            if (actionName != "Authenticate")
+            {
+                context.HttpContext.Request.InputStream.Seek(0, 0);
+                var reader = new StreamReader(context.HttpContext.Request.InputStream);
+                var inputString = reader.ReadToEnd();
+                context.HttpContext.Request.InputStream.Seek(0, 0);
+                msg.AppendFormat("Request Body: {0}", inputString, Environment.NewLine);
+                msg.AppendLine();
+            }
             _logger.Info(msg.ToString());
         }
     }

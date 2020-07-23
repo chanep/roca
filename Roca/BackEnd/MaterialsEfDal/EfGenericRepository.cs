@@ -15,7 +15,7 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
     /// The EF-dependent, generic repository for data access
     /// </summary>
     /// <typeparam name="T">Type of entity for this Repository.</typeparam>
-    public class EfGenericRepository<K, T> : IRepository<K, T> where T : Entity<K>, new()
+    public class EfGenericRepository<K, T> : IRepository<K, T> where T : Entity<K>
     {
         public EfGenericRepository(DbContext dbContext)
         {
@@ -58,7 +58,7 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
             Update<T>(entity);
         }
 
-        protected virtual void Update<TEntity>(TEntity entity) where TEntity : Entity<K>, new()
+        protected virtual void Update<TEntity>(TEntity entity) where TEntity : Entity<K>
         {
             var attached = DbContext.Set<TEntity>().Local.FirstOrDefault(i => i.Id.Equals(entity.Id));
             if (attached != null)

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Cno.Roca.BackEnd.AutoPlant.Data;
-using Cno.Roca.Core.Entity;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
 
 namespace Cno.Roca.BackEnd.AutoPlant.BL
 {
-    public class AreaDal : DalBasic<AreaPk, Area>
+    public class AreaDal
     {
+        private OracleConnection _connection;
+        protected Dictionary<string, string> MapeoDb;
         public AreaDal()
-            : base(DbConnManagerFactory.GetDbConnectionManager())
         {
             MapeoDb = new Dictionary<string, string>()
 						{
@@ -22,7 +22,83 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
 						};
         }
 
-        protected override OracleCommand BuildGetCommand(AreaPk id)
+        protected void OpenConnection()
+        {
+            _connection = DbConnectionManager.GetAutoplantConnection();
+            _connection.Open();
+        }
+
+        protected void CloseConnection(OracleConnection connection)
+        {
+            if (connection != null)
+                connection.Close();
+        }
+
+        public Area Get(AreaPk id)
+        {
+            OpenConnection();
+            OracleDataReader dataReader = null;
+            OracleCommand command = null;
+            try
+            {
+                command = BuildGetCommand(id);
+                command.Connection = _connection;
+                dataReader = command.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    return BuildEntity(dataReader);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            finally
+            {
+                if ((dataReader != null) && !dataReader.IsClosed)
+                {
+                    dataReader.Dispose();
+                }
+                if (command != null)
+                {
+                    command.Dispose();
+                }
+                CloseConnection(_connection);
+            }
+        }
+
+        public IList<Area> GetAll()
+        {
+            OpenConnection();
+            OracleCommand command = null;
+            OracleDataReader dataReader = null;
+            try
+            {
+                command = BuildGetAllCommand();
+                command.Connection = _connection;
+                dataReader = command.ExecuteReader();
+                var entities = new List<Area>();
+                while (dataReader.Read())
+                {
+                    entities.Add(BuildEntity(dataReader));
+                }
+                return entities;
+            }
+            finally
+            {
+                if ((dataReader != null) && !dataReader.IsClosed)
+                {
+                    dataReader.Dispose();
+                }
+                if (command != null)
+                {
+                    command.Dispose();
+                }
+                CloseConnection(_connection);
+            }
+        }
+
+        protected OracleCommand BuildGetCommand(AreaPk id)
         {
             string sql = @"SELECT * FROM AREA3D WHERE ID = :p_ID AND PROJ_ID = :p_PROJ_ID";
             var cmd = new OracleCommand(sql);
@@ -35,7 +111,7 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
 
         }
 
-        protected override OracleCommand BuildGetAllCommand()
+        protected OracleCommand BuildGetAllCommand()
         {
             string sql = @"SELECT * FROM AREA3D";
             var cmd = new OracleCommand(sql);
@@ -43,24 +119,9 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
             return cmd;
         }
 
-        protected override OracleCommand BuildCreateCommand(Area entity)
+        protected Area BuildEntity(OracleDataReader dataReader)
         {
-            throw new NotImplementedException();
-        }
-
-        protected override OracleCommand BuildUpdateCommand(Area entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override OracleCommand BuildDeleteCommand(Area entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override Area BuildEntity(OracleDataReader dataReader)
-        {
-            Area entity = GetEntityInstance();
+            var entity = new Area();
 
             int i;
 

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Cno.Roca.Web.RocaSite.Infrastructure;
+using Cno.Roca.Web.RocaSite.Log;
 using RocaSite;
 
 namespace Cno.Roca.Web.RocaSite
@@ -35,15 +38,15 @@ namespace Cno.Roca.Web.RocaSite
 
             ValueProviderFactories.Factories.Remove(ValueProviderFactories.Factories.OfType<System.Web.Mvc.JsonValueProviderFactory>().FirstOrDefault());
             ValueProviderFactories.Factories.Add(new LargeJsonValueProviderFactory());
-
-            DbDataGenerator.DeleteTestData();
-            DbDataGenerator.CreateTestData();
+            //ValueProviderFactories.Factories.Add(new JsonServiceStackValueProviderFactory()); //empezo a romper las bolas con comprar una licencia
+            //DbDataGenerator.DeleteTestData();
+            //DbDataGenerator.CreateTestData();
 
         }
 
         protected void Application_End()
         {
-            DbDataGenerator.DeleteTestData();
+            //DbDataGenerator.DeleteTestData();
         }
 
 
@@ -51,7 +54,23 @@ namespace Cno.Roca.Web.RocaSite
         {
             //Response.AddHeader("Cache-Control", "no-cache, no-store, must-revalidate");
             //Response.AddHeader("Pragma", "no-cache"); // HTTP 1.0.
-            //Response.AddHeader("Expires", "0"); // Proxies.
+            Response.AddHeader("Expires", "0"); // Proxies.
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            ILogger logger = DependencyResolver.Current.GetService<ILogger>();
+
+            HttpContext ctx = HttpContext.Current;
+
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(ctx.Request.Url.ToString() + System.Environment.NewLine);
+            sb.Append("Source:" + System.Environment.NewLine + ctx.Server.GetLastError().Source.ToString());
+            sb.Append("Message:" + System.Environment.NewLine + ctx.Server.GetLastError().Message.ToString());
+            sb.Append("Stack Trace:" + System.Environment.NewLine + ctx.Server.GetLastError().StackTrace.ToString());
+            
+            logger.Error(sb.ToString());
         }
     }
 }

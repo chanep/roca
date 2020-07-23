@@ -2,7 +2,11 @@
 .directive('ngChangeDelay', ['$timeout', function ($timeout) {
     return {
         restrict: 'A',
-        scope: true,
+        //true -> child scope, false o undefined -> shared scope
+        // scope: {name: '@' (idem '@name')} -> one way binding de literals o expressions ( name='{{Model.Name}}' ), toma el valor del atributo name en forma readOnly
+        // scope: {name: '='} -> two way binding de un objeto del scope externo ( name='Model.Name' ) 
+        // scope: {onChange: '&'} -> para callbacks sobre el scope externo ( on-change='changed()' )
+        scope: true,  
         compile: function (element, attributes) {
             var expression = attributes['ngChange'];
             if (!expression)

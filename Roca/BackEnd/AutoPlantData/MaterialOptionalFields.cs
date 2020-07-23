@@ -12,6 +12,7 @@ namespace Cno.Roca.BackEnd.AutoPlant.Data
         Service = 1,
         Line = 2,
         Tag = 4,
+        Insulation = 8,
         All = 0xFFFF
     }
 }

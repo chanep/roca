@@ -38,16 +38,71 @@
     };
 
     var addFunctionTemplate = function (callback) {
-        return '<div class="ngCellText colt{{$index}}"><a ng-click="$parent.' + callback + '(row.entity)"><i title="Agregar" class="glyphicon glyphicon-plus-sign"></i></a></div>';
+        return '<div class="ngCellText colt{{$index}}"><a ng-click="$parent.' + callback + '(row.entity)"><i title="Agregar" style="cursor: pointer;"class="glyphicon glyphicon-plus-sign"></i></a></div>';
     };
 
     var deleteFunctionTemplate = function (callback) {
-        return '<div class="ngCellText colt{{$index}}"><a ng-click="$parent.' + callback + '(row.entity)"><i title="Eliminar" class="glyphicon glyphicon-remove-circle"></i></a></div>';
+        return '<div class="ngCellText colt{{$index}}"><a ng-click="$parent.' + callback + '(row.entity)"><i title="Eliminar" style="color: #ff0000; cursor: pointer;" class="glyphicon glyphicon-remove-circle"></i></a></div>';
     };
 
+    var footerTemplate = function(visible) {
+        return  "<div class=\"ngFooterPanel\" ng-show=\"$parent." + visible + "\" style='border-top: 0px;' ng-class=\"{'ui-widget-content': jqueryUITheme, 'ui-corner-bottom': jqueryUITheme}\" ng-style=\"footerStyle()\" >\r" +
+                "\n" +
+                "    <div class=\"ngTotalSelectContainer\" >\r" +
+                "\n" +
+                "        <div class=\"ngFooterTotalItems\" ng-class=\"{'ngNoMultiSelect': !multiSelect}\" >\r" +
+                "\n" +
+                "            <span class=\"ngLabel\">{{i18n.ngTotalItemsLabel}} {{maxRows()}}</span><span ng-show=\"filterText.length > 0\" class=\"ngLabel\">({{i18n.ngShowingItemsLabel}} {{totalFilteredItemsLength()}})</span>\r" +
+                "\n" +
+                "        </div>\r" +
+                "\n" +
+                "        <div class=\"ngFooterSelectedItems\" ng-show=\"multiSelect\">\r" +
+                "\n" +
+                "            <span class=\"ngLabel\">{{i18n.ngSelectedItemsLabel}} {{selectedItems.length}}</span>\r" +
+                "\n" +
+                "        </div>\r" +
+                "\n" +
+                "    </div>\r" +
+                "\n" +
+                "    <div class=\"ngPagerContainer\" style=\"float: right; margin-top: 10px;\" ng-show=\"enablePaging\" ng-class=\"{'ngNoMultiSelect': !multiSelect}\">\r" +
+                "\n" +
+                "        <div style=\"float:left; margin-right: 10px;\" class=\"ngRowCountPicker\">\r" +
+                "\n" +
+                "            <span style=\"float: left; margin-top: 3px;\" class=\"ngLabel\">{{i18n.ngPageSizeLabel}}</span>\r" +
+                "\n" +
+                "            <select style=\"float: left;height: 27px; width: 100px\" ng-model=\"pagingOptions.pageSize\" >\r" +
+                "\n" +
+                "                <option ng-repeat=\"size in pagingOptions.pageSizes\">{{size}}</option>\r" +
+                "\n" +
+                "            </select>\r" +
+                "\n" +
+                "        </div>\r" +
+                "\n" +
+                "        <div style=\"float:left; margin-right: 10px; line-height:25px;\" class=\"ngPagerControl\" style=\"float: left; min-width: 135px;\">\r" +
+                "\n" +
+                "            <button type=\"button\" class=\"ngPagerButton\" ng-click=\"pageToFirst()\" ng-disabled=\"cantPageBackward()\" title=\"{{i18n.ngPagerFirstTitle}}\"><div class=\"ngPagerFirstTriangle\"><div class=\"ngPagerFirstBar\"></div></div></button>\r" +
+                "\n" +
+                "            <button type=\"button\" class=\"ngPagerButton\" ng-click=\"pageBackward()\" ng-disabled=\"cantPageBackward()\" title=\"{{i18n.ngPagerPrevTitle}}\"><div class=\"ngPagerFirstTriangle ngPagerPrevTriangle\"></div></button>\r" +
+                "\n" +
+                "            <input class=\"ngPagerCurrent\" min=\"1\" max=\"{{currentMaxPages}}\" type=\"number\" style=\"width:50px; height: 24px; margin-top: 1px; padding: 0 4px;\" ng-model=\"pagingOptions.currentPage\"/>\r" +
+                "\n" +
+                "            <span class=\"ngGridMaxPagesNumber\" ng-show=\"maxPages() > 0\">/ {{maxPages()}}</span>\r" +
+                "\n" +
+                "            <button type=\"button\" class=\"ngPagerButton\" ng-click=\"pageForward()\" ng-disabled=\"cantPageForward()\" title=\"{{i18n.ngPagerNextTitle}}\"><div class=\"ngPagerLastTriangle ngPagerNextTriangle\"></div></button>\r" +
+                "\n" +
+                "            <button type=\"button\" class=\"ngPagerButton\" ng-click=\"pageToLast()\" ng-disabled=\"cantPageToLast()\" title=\"{{i18n.ngPagerLastTitle}}\"><div class=\"ngPagerLastTriangle\"><div class=\"ngPagerLastBar\"></div></div></button>\r" +
+                "\n" +
+                "        </div>\r" +
+                "\n" +
+                "    </div>\r" +
+                "\n" +
+                "</div>\r" +
+                "\n";
+        };
 
-    return {
+        return {
         tooltipTemplate: tooltipTemplate,
+        footerTemplate: footerTemplate,
         decimalEditableCellTemplate: decimalEditableCellTemplate,
         boolEditableCellTemplate: boolEditableCellTemplate,
         mailLinkTemplate: mailLinkTemplate,

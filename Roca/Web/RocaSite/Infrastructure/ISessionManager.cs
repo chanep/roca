@@ -4,9 +4,9 @@ namespace Cno.Roca.Web.RocaSite.Infrastructure
 {
     public interface ISessionManager
     {
-        User GetLoggedtUser();
+        User GetCurrentUser();
         SessionContext GetSessionContext();
         void SaveSessionContext(SessionContext sessionContext);
-        void ImpersonateUser(User user);
+        void SetCurrentUser(User user);
     }
 }

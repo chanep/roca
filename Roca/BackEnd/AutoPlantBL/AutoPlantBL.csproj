@@ -44,9 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaDal.cs" />
-    <Compile Include="DbConnManagerFactory.cs" />
+    <Compile Include="DbConnectionManager.cs" />
+    <Compile Include="IMatPipingMigrator.cs" />
     <Compile Include="IModelRepository.cs" />
     <Compile Include="MaterialPipingDal.cs" />
+    <Compile Include="MatPipingMigrationDal.cs" />
+    <Compile Include="MatPipingMigrator.cs" />
     <Compile Include="ModelRepository.cs" />
     <Compile Include="ProjectDal.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -59,10 +62,6 @@
     <ProjectReference Include="..\CoreData\CoreData.csproj">
       <Project>{303527C5-AB5E-4A49-85EA-0DBD9F2AAB95}</Project>
       <Name>CoreData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{8B971CD3-4D90-42A9-8BFF-C8D49F7EBA4C}</Project>
-      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

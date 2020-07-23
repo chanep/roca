@@ -47,6 +47,10 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
         private ITaggableTypeRepository _taggableTypes;
         private IRepository<int, Document> _documents;
         private ITimeSheetRepository _timeSheets;
+        private IMatPipingRepository _matPipings;
+        private IBasCodeRepository _basCodes;
+        private IBasElementRepository _basElements;
+
 
 
 
@@ -148,6 +152,36 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
                 if (_timeSheets == null)
                     _timeSheets = new TimeSheetRepository(DbContext);
                 return _timeSheets;
+            }
+        }
+
+        public virtual IMatPipingRepository MatPipings
+        {
+            get
+            {
+                if (_matPipings == null)
+                    _matPipings = new MatPipingRepository(DbContext);
+                return _matPipings;
+            }
+        }
+
+        public virtual IBasCodeRepository BasCodes
+        {
+            get
+            {
+                if (_basCodes == null)
+                    _basCodes = new BasCodeRepository(DbContext);
+                return _basCodes;
+            }
+        }
+
+        public virtual IBasElementRepository BasElements
+        {
+            get
+            {
+                if (_basElements == null)
+                    _basElements = new BasElementRepository(DbContext);
+                return _basElements;
             }
         }
 

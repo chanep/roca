@@ -3,7 +3,7 @@ using Cno.Roca.CoreData.Entity;
 
 namespace Cno.Roca.BackEnd.Materials.BL.Repositories
 {
-    public interface IRepository<K, T> where T : Entity<K>, new()
+    public interface IRepository<K, T> where T : Entity<K>
     {
         
         T Get(K id);

@@ -1,0 +1,107 @@
+﻿<style type="text/css">
+    .tableOuter {
+        width: 100%;
+        background-color: #fff;
+        font-size: 0.9em;
+        border-spacing: 0;
+    }   
+    .tableBorder {
+        border: 1px solid gray;
+        border-collapse: collapse; 
+    }    
+    .noBorder {
+        border: none;
+    }   
+    .ba {
+        border: 1px solid gray;
+    }
+    .bt {
+        border-top: 1px solid gray;
+    }   
+    .bb {
+        border-bottom: 1px solid gray;
+    }    
+    .bl {
+        border-left: 1px solid gray;
+    }   
+    .br {
+        border-right: 1px solid gray;
+    }
+    .tableInner {
+        width: 100%;     
+    }  
+    .tableHeader {
+        text-align: center;
+    }
+    .cell {
+        padding: 2px 6px 2px 6px;
+    }
+    .cellHeader {
+        font-weight: bold;
+    }  
+    .cellHeader2 {
+    }
+    .cellItems {
+    }
+</style>
+
+<div class="container-fluid" >
+    <div class="row" style="padding-bottom: 20px;">
+        <div class="form-group col-md-2">
+            <label class="control-label small">
+                Proyecto
+            </label>
+            <select class="form-control input-sm" ng-model="Model.Filter.ProjectId" tabindex="1"
+                    ng-options="p.Id as p.Name for p in Model.Projects" ng-change="projectChanged()"></select>
+        </div>
+        <div class="form-group col-md-2">
+            <label class="control-label small">
+                Commodity Code
+            </label>
+            <input class="form-control input-sm" ng-model="Model.Filter.CommodityCode" tabindex="2"
+                   data-typeahead="term.value for term in getAutosuggest('CommodityCode') | filter:$viewValue"
+                   data-typeahead-on-select="updateLm()" ng-change="filterChanged('CommodityCode')" data-typeahead-wait-ms="250" />
+        </div>
+        <div class="form-group col-md-4">
+            <label class="control-label small">
+                Description
+            </label>
+            <input class="form-control input-sm" ng-model="Model.Filter.LongDescription" tabindex="3"
+                   data-typeahead="term.value for term in getAutosuggest('LongDescription') | filter:$viewValue"
+                   data-typeahead-on-select="updateLm()" ng-change="filterChanged('LongDescription')" data-typeahead-wait-ms="250" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-7">            
+            <table class="tableOuter noBorder">
+                <tr class="bt bl br">
+                    <td class="cell cellHeader">DESCRIPTION:</td>
+                    <td class="cell cellHeader2" colspan="5"> {{Model.MatPipingFamily.CommodityCode}}</td>
+                </tr>
+                <tr class="bl br">
+                    <td class="cell cellHeader2" > </td>
+                    <td class="cell cellHeader2" style="width: 100%; padding-bottom: 10px;"  colspan="5"> {{Model.MatPipingFamily.LongDescription}}</td>
+                </tr>
+                <tr class="ba">
+                    <td class="cell tableHeader cellHeader"  colspan="6">MATERIAL REQUISITION FORM PROCUREMENT</td>
+                </tr>
+                <tr class="ba">
+                    <td class="cell cellHeader">ITEM</td>
+                    <td class="cell cellHeader">OEP CODE</td>
+                    <td class="cell cellHeader">SIZE</td>
+                    <td class="cell cellHeader">LAST QTY</td>
+                    <td class="cell cellHeader">NEW QTY</td>
+                    <td class="cell cellHeader">UN</td>
+                </tr>
+                <tr class="ba" ng-repeat="material in Model.MatPipingFamily.Materials">
+                    <td class="cell cellItems"> {{$index + 1}}</td>
+                    <td class="cell cellItems"> {{material.OepCode}}</td>
+                    <td class="cell cellItems"> {{material.IdentLayout}}</td>
+                    <td class="cell cellItems"> {{material.Quantity}}</td>
+                    <td class="cell cellItems"> {{material.Quantity}}</td>
+                    <td class="cell cellItems">-</td>
+                </tr>                        
+            </table>
+        </div>
+    </div>
+</div>

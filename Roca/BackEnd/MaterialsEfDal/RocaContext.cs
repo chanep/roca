@@ -28,15 +28,16 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
         }
 
 
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Material> Materials { get; set; }
-        public DbSet<Specialty> Specialties { get; set; }
-        public DbSet<Unit> Units { get; set; }
-        public DbSet<MaterialList> MaterialLists { get; set; }
-        public DbSet<LookUp> LookUps { get; set; }
-        public DbSet<Document> Documents { get; set; }
-        public DbSet<TimeSheet> TimeSheets { get; set; }
+        //public DbSet<Project> Projects { get; set; }
+        //public DbSet<User> Users { get; set; }
+        //public DbSet<Material> Materials { get; set; }
+        //public DbSet<Specialty> Specialties { get; set; }
+        //public DbSet<Unit> Units { get; set; }
+        //public DbSet<MaterialList> MaterialLists { get; set; }
+        //public DbSet<LookUp> LookUps { get; set; }
+        //public DbSet<Document> Documents { get; set; }
+        //public DbSet<TimeSheet> TimeSheets { get; set; }
+        //public DbSet<MatPiping> MatPipings { get; set; }
 
 
 
@@ -58,6 +59,21 @@ namespace Cno.Roca.BackEnd.Materials.EfDal
             modelBuilder.Configurations.Add(new DocumentMap());
             modelBuilder.Configurations.Add(new TimeSheetMap());
             modelBuilder.Configurations.Add(new TimeSheetItemMap());
+            modelBuilder.Configurations.Add(new MatPipingMap());
+
+            modelBuilder.Configurations.Add(new BasCodeMap());
+            modelBuilder.Configurations.Add(new BasClassMap());
+            modelBuilder.Configurations.Add(new BasClassAttributeMap());
+            modelBuilder.Configurations.Add(new BasElementTypeMap());
+            modelBuilder.Configurations.Add(new BasElementMap());
+            modelBuilder.Configurations.Add(new BasElementPipingMap());
+            modelBuilder.Configurations.Add(new BasElementValveMap());
+            modelBuilder.Configurations.Add(new BasElementEiMap());
+            modelBuilder.Configurations.Add(new BasElementCableMap());
+
+            modelBuilder.Configurations.Add(new BasFieldDefinitionMap());
+            modelBuilder.Configurations.Add(new BasCodeFieldMap());
+            modelBuilder.Ignore<BasClassAttributeWithValue>();
         }
     }
 }

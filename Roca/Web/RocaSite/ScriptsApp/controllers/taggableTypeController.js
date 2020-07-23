@@ -1,4 +1,4 @@
-﻿angular.module('app').controller('Taggable.Types.Controller', ['$scope', 'TaggableService', function ($scope, taggableService) {
+﻿angular.module('app').controller('Taggable.Types.Controller', ['$scope', 'TaggableService', 'UserService', function ($scope, taggableService, userService) {
     $scope.Model = {};
     var m = $scope.Model;
     $scope.RootModel.Title = "Tipos de Materiales Tagueables";
@@ -6,9 +6,9 @@
     m.SubtypeEditMode = false;
     m.TypeEditMode = false;
 
-    taggableService.getSpecialties()
+    userService.getCurrentUser()
         .then(function(data) {
-            m.Specialties = data;
+            m.Specialties = data.Specialties;
             m.Specialty = m.Specialties[0];
             updateTypes();
         });

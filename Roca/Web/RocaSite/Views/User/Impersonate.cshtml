@@ -1,0 +1,6 @@
+﻿<div>
+    <label class="fieldLbl">Usuario: </label>
+    <select ng-model="Model.UserId" ng-options="u.Id as u.FullName for u in Model.Users | orderBy:'FullName'" ng-change="userChanged()">
+        <option value="">-- Seleccione un Usuario --</option>
+    </select>
+</div>

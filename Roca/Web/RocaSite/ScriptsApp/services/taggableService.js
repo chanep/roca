@@ -1,14 +1,8 @@
-﻿angular.module('app').factory('TaggableService', ['$http', function ($http) {
+﻿angular.module('app').factory('TaggableService', ['$http' , function ($http) {
 
     var getTypes = function (specialtyId) {
         return $http.get("Taggable/GetTypes", { params: { specialtyId: specialtyId} })
                 .then(function (data) { return data.data; });
-    };
-
-
-    var getSpecialties = function () {
-        return $http.get("Login/GetLoggedUser")
-                .then(function (data) { return data.data.Specialties; });
     };
 
     var addType = function (type) {
@@ -33,7 +27,6 @@
 
     return {
         getTypes: getTypes,
-        getSpecialties: getSpecialties,
         addType: addType,
         saveAttributes: saveAttributes,
         deleteType: deleteType,

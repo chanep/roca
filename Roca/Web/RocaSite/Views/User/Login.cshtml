@@ -1,0 +1,51 @@
+﻿<style>
+    .headerLabel {
+        float: left;
+        padding-right: 10px;
+        text-align: right;
+        width: 260px;
+        min-height: 1px;
+        
+    }
+    .headerInput {
+        float: left;
+        padding-right: 5px;
+        width: 180px;
+        min-height: 1px;
+    }
+</style>
+
+<form name="loginForm" novalidate ng-submit="submit()">
+<div class="container-fluid">
+    <div class="row form-group">
+        <div class="headerLabel">
+            <label class="control-label small">Usuario</label>
+        </div>
+        <div class="headerInput">
+            <input class="form-control input-sm" ng-model="Model.User.Name" name="user"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="headerLabel">
+            <label class="control-label small">Password</label>
+        </div>
+        <div class="headerInput">
+            <input class="form-control input-sm" type="password" ng-model="Model.User.Password" name="password"/>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="headerLabel">
+        </div>
+        <div class="headerInput">
+            <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
+    </div>
+    <div class="row form-group" ng-show="Model.LoginFailed">
+        <div class="headerLabel">
+        </div>
+        <div class="headerInput">
+            <label class="control-label small" style="color:red;">Usuario o password incorrecto!</label>
+        </div>
+    </div>
+</div>
+</form>

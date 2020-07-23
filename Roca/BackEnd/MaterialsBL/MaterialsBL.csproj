@@ -47,8 +47,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Filters\BasElementFilter.cs" />
+    <Compile Include="Filters\MatPipingFilter.cs" />
+    <Compile Include="Repositories\IBasCodeRepository.cs" />
+    <Compile Include="Repositories\IBasElementRepository.cs" />
     <Compile Include="Repositories\IMaterialRepository.cs" />
     <Compile Include="Repositories\IMaterialListRepository.cs" />
+    <Compile Include="Repositories\IMatPipingRepository.cs" />
     <Compile Include="Repositories\IProjectRepository.cs" />
     <Compile Include="Repositories\IRocaUow.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -57,17 +62,21 @@
     <Compile Include="Repositories\ITimeSheetRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
     <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\BasService.cs" />
     <Compile Include="Services\CommonService.cs" />
     <Compile Include="Filters\DocumentFilter.cs" />
     <Compile Include="Filters\EiMaterialFilter.cs" />
+    <Compile Include="Services\IBasService.cs" />
     <Compile Include="Services\ICommonService.cs" />
     <Compile Include="Services\IMaterialListService.cs" />
     <Compile Include="Services\IMaterialService.cs" />
+    <Compile Include="Services\IMatPipingService.cs" />
     <Compile Include="Services\IRocaService.cs" />
     <Compile Include="Services\ITaggableTypeService.cs" />
     <Compile Include="Services\ITimeSheetService.cs" />
     <Compile Include="Services\MaterialListService.cs" />
     <Compile Include="Services\MaterialService.cs" />
+    <Compile Include="Services\MatPipingService.cs" />
     <Compile Include="Services\RocaService.cs" />
     <Compile Include="Services\TaggableTypeService.cs" />
     <Compile Include="Filters\TimeSheetFilter.cs" />

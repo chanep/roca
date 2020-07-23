@@ -1,7 +1,7 @@
 ﻿angular.module('app').factory('ProjectService', ['$http', function ($http) {
 
     var getProjects = function () {
-        return $http.get("Project/GetProjects")
+        return $http.get("Project/GetProjects", { cache: true })
                 .then(function (data) { return data.data; });
     };
 

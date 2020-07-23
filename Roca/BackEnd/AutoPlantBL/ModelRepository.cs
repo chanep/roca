@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Cno.Roca.BackEnd.AutoPlant.Data;
-using Cno.Roca.Core.Entity;
 
 namespace Cno.Roca.BackEnd.AutoPlant.BL
 {
@@ -18,7 +17,8 @@ namespace Cno.Roca.BackEnd.AutoPlant.BL
         public IEnumerable<Area> GetAreas(string projId)
         {
             var dal = new AreaDal();
-            return dal.GetAll(a => a.Id.ProjectId == projId, a => Direction.Asc(a.Name));
+            //return dal.GetAll(a => a.Id.ProjectId == projId, a => Direction.Asc(a.Name));
+            return dal.GetAll().Where(a => a.Id.ProjectId == projId).OrderBy(a => a.Name);
         }
 
         public IEnumerable<MaterialPiping> GetMaterials(string projId, string areaId, MaterialOptionalFields optFields, MaterialPipingOrder order)

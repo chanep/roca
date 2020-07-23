@@ -18,6 +18,7 @@ namespace Cno.Roca.BackEnd.AutoPlant.Data
         public string PaintCode { get; set; }
         public string Insulation { get; set; }
         public string PieceMark { get; set; }
+        public string Spool { get; set; }
         public double Quantity { get; set; }
         public double TotalQuantity { get; set; }
 

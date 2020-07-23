@@ -42,7 +42,24 @@ Insert into SPECIALTIES
 COMMIT;
 
 
-
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (1, 'ODEBRECHT\ecanepa', 'Esteban', 'Canepa', 'ecanepa@odebrecht.com', 
+    'SuperAdmin,Admin,Read,Write,BasAdmin,BasWrite', 'ESC');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (2, 'WinXpDev\Administrador', 'Test1', 'Canepa', 'ecanepa@odebrecht.com', 
+    'SuperAdmin,Admin,Read,Write,BasAdmin,BasWrite', 'ESC');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (3, 'HOME\e', 'Test2', 'Canepa', 'ecanepa@odebrecht.com', 
+    'SuperAdmin,Admin,Read,Write,BasAdmin,BasWrite', 'ESC');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -60,7 +77,7 @@ Insert into ROCA.USERS
     ROLES, INITIALS)
  Values
    (12, 'ODEBRECHT\amassun', 'Agustin', 'Massun', 'amassun@odebrecht.com', 
-    'Admin,Leader,Read,Write', 'XX');
+    'Leader,Read,Write,Admin', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -78,13 +95,13 @@ Insert into ROCA.USERS
     ROLES, INITIALS)
  Values
    (15, 'ODEBRECHT\federicogarcia', 'Federico', 'Garcia', 'federicogarcia@odebrecht.com', 
-    'Read,Write', 'XX');
+    'Read,Write,BasWrite,BasAdmin', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
  Values
    (16, 'ODEBRECHT\mbenjamin', 'Maximiliano', 'Benjamin', 'mbenjamin@odebrecht.com', 
-    'Read,Write', 'XX');
+    'Leader,Read,Write', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -96,13 +113,13 @@ Insert into ROCA.USERS
     ROLES, INITIALS)
  Values
    (18, 'ODEBRECHT\mirandan', 'Nazareno', 'Miranda', 'mirandan@odebrecht.com', 
-    'Read,Write', 'XX');
+    'Leader,Read,Write,BasWrite,BasAdmin', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
  Values
    (19, 'ODEBRECHT\emarkow', 'Eduardo', 'Markow', 'emarkow@odebrecht.com', 
-    'Leader,Read,Write', 'XX');
+    'Read,Write', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -150,7 +167,7 @@ Insert into ROCA.USERS
     ROLES, INITIALS)
  Values
    (27, 'ODEBRECHT\jinfantino', 'Jorge', 'Infantino', 'jinfantino@odebrecht.com', 
-    'Leader,Read,Write', 'XX');
+    'Leader,Read,Write,BasWrite,BasAdmin', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -168,7 +185,7 @@ Insert into ROCA.USERS
     ROLES, INITIALS)
  Values
    (30, 'ODEBRECHT\mromano', 'Matias', 'Romano', 'mromano@odebrecht.com', 
-    'Read,Write', 'XX');
+    'Read,Write,BasWrite,BasAdmin', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -257,7 +274,7 @@ Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
  Values
-   (45, 'ODEBRECHT\cfiumara', 'Claudio', 'Fuimara', 'cfiumara@odebrecht.com', 
+   (45, 'ODEBRECHT\cfiumara', 'Claudio', 'Fiumara', 'cfiumara@odebrecht.com', 
     'Read,Write', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
@@ -276,7 +293,7 @@ Insert into ROCA.USERS
     ROLES, INITIALS)
  Values
    (48, 'ODEBRECHT\prossi', 'Pablo', 'Rossi', 'prossi@odebrecht.com', 
-    'Leader,Read,Write', 'XX');
+    'Read,Write', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
@@ -299,33 +316,92 @@ Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
  Values
-   (1, 'ODEBRECHT\ecanepa', 'Esteban', 'Canepa', 'ecanepa@odebrecht.com', 
-    'SuperAdmin,Admin,Read,Write', 'ESC');
-Insert into ROCA.USERS
-   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
-    ROLES, INITIALS)
- Values
-   (2, 'WinXpDev\Administrador', 'Test1', 'Canepa', 'ecanepa@odebrecht.com', 
-    'SuperAdmin,Admin,Read,Write', 'ESC');
-Insert into ROCA.USERS
-   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
-    ROLES, INITIALS)
- Values
-   (3, 'HOME\e', 'Test2', 'Canepa', 'ecanepa@odebrecht.com', 
-    'SuperAdmin,Admin,Read,Write', 'ESC');
-Insert into ROCA.USERS
-   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
-    ROLES, INITIALS)
- Values
    (52, 'ODEBRECHT\pabloisla', 'Pablo', 'Isla', 'pabloisla@odebrecht.com', 
-    'Read,Write', 'XX');
+    'Read,Write,Leader', 'XX');
 Insert into ROCA.USERS
    (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
     ROLES, INITIALS)
  Values
    (53, 'ODEBRECHT\janzola', 'Jairo', 'Anzola', 'janzola@odebrecht.com', 
-    'Admin,Read,Write,Leader', 'XX');
+    'Read,Write,Leader', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (54, 'ODEBRECHT\ugarofalo', 'Uberto', 'Garofalo', 'ugarofalo@odebrecht.com', 
+    'Read,Write', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (55, 'ODEBRECHT\fbruzone', 'Francisco', 'Bruzone', 'fbruzone@odebrecht.com', 
+    'Read,Write,BasWrite', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (56, 'ODEBRECHT\frebak', 'Felipe', 'Rebak', 'frebak@odebrecht.com', 
+    'Read,Write', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (57, 'ODEBRECHT\alzugaray', 'Eugenio', 'Alzugaray', 'alzugaray@odebrecht.com', 
+    'Read,Write', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (58, 'ODEBRECHT\rbonanno', 'Roberto', 'Bonanno', 'rbonanno@odebrecht.com', 
+    'Read,Write,BasWrite,BasAdmin', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (59, 'ODEBRECHT\jmrincon', 'Juan Manuel', 'Rincon', 'jmrincon@odebrecht.com', 
+    'Read,Write,BasWrite,BasAdmin', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (60, 'ODEBRECHT\mtisminetzky', 'Mauro', 'Tisminetzky', 'mtisminetzky@odebrecht.com', 
+    'Read,Write', 'XX');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (61, 'ODEBRECHT\dtoth', 'Daniel', 'Toth', 'dtoth@odebrecht.com', 
+    'Read,Write', 'DT');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (62, 'ODEBRECHT\emevangelista', 'Elisa Mabel', 'Evangelista', 'emevangelista@odebrecht.com', 
+    'Read,Write', 'EME');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (63, 'ODEBRECHT\nheredia', 'Nicolas', 'Heredia', 'nheredia@odebrecht.com', 
+    'Read,Write', 'NH');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (64, 'ODEBRECHT\pamestoy', 'Pablo', 'Amestoy', 'pamestoy@odebrecht.com', 
+    'Read,Write', 'PA');
+Insert into ROCA.USERS
+   (ID, USER_NAME, NAME, LAST_NAME, MAIL, 
+    ROLES, INITIALS)
+ Values
+   (65, 'ODEBRECHT\martinniz', 'Martin', 'Niz', 'martinniz@odebrecht.com', 
+    'Read,Write', 'MN');
 COMMIT;
+
+
+
+
+
 
 
 
@@ -347,13 +423,49 @@ Insert into ROCA.UNITS
 COMMIT;
 
 Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (53, 'PC Manantiales Behr', 'PCMB', 'PC Manantiales', 52);
+Insert into ROCA.PROJECTS
    (PROJECT_ID, NAME, CODE, SHORT_NAME)
  Values
-   (10, 'No Imputable', 'NO_IMP', 'No Imputab.');
+   (54, 'PC Pico Truncado', 'PCPT', 'PC Pico Truncado');
 Insert into ROCA.PROJECTS
    (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
  Values
-   (11, 'No Imputable', 'NO_IMP', 'No Imputab.', 10);
+   (49, 'Miraflores - Lumbreras', 'N38', 'N38', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (50, 'Aldao - Santa Fe', 'N34c', 'N34c', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (51, 'Mercedes - Cardales', 'S66', 'S66', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME)
+ Values
+   (52, 'PC Manantiales Behr', 'PCMB', 'PC Manantiales');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (55, 'PC Pico Truncado', 'PCPT', 'PC Pico Truncado', 54);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME)
+ Values
+   (56, 'PC Garayalde', 'PCGA', 'PC Garayalde');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (57, 'PC Garayalde', 'PCGA', 'PC Garayalde', 56);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME)
+ Values
+   (58, 'PC Buchanan', 'PCBU', 'PC Buchanan');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (59, 'PC Buchanan', 'PCBU', 'PC Buchanan', 58);
 Insert into ROCA.PROJECTS
    (PROJECT_ID, NAME, CODE, SHORT_NAME, SUBPROJECT_TYPE)
  Values
@@ -390,19 +502,153 @@ Insert into ROCA.PROJECTS
    (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
  Values
    (9, 'PC Beazley', 'BEA', 'Beazley', 8);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME)
+ Values
+   (1000, 'No Imputable', 'NO_IMP', 'No Imputab.');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (1001, 'No Imputable', 'NO_IMP', 'No Imputab.', 1000);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (48, 'La Mora-Beazley', 'N36', 'N36', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, SUBPROJECT_TYPE)
+ Values
+   (20, 'Gasoducto Norte', 'GASO_N', 'Gaso Norte', 'Tramo');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, SUBPROJECT_TYPE)
+ Values
+   (21, 'Gasoducto Sur', 'GASO_S', 'Gaso Sur', 'Tramo');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (22, 'Tramos Generales ', 'N00', 'N00', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (23, 'Campo Duran -Pichanal ', 'N02', 'N02', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (24, 'Miraflores-Lumbreras', 'N05a', 'N05a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (25, 'Tucuman-Lavalle', 'N09a', 'N09a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (26, 'Lavalle - Recreo', 'N10a', 'N10a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (27, 'Recreo - Deán Funes', 'N11', 'N11', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (28, 'Recreo-Dean Funes', 'N11a', 'N11a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (29, 'Dean Funes - Ferreyra', 'N13a', 'N13a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (30, 'Ferreyra - Tio Pujio', 'N13b', 'N13b', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (31, 'Dean Funes - Ferreyra', 'N13c', 'N13c', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (32, 'Ferreyra-Tio Pujio', 'N13d', 'N13d', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (33, 'Tio Pujio -Leones', 'N14a', 'N14a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (34, 'San Jerónimo - VN73', 'N33', 'N33', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (35, 'San Jerónimo - Aldao', 'N34a', 'N34a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (36, 'Aldao - Santa Fe', 'N34b', 'N34b', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (37, 'Leones - San Jerónimo', 'N35', 'N35', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (38, 'Leones - San Jeronimo ', 'N35a', 'N35a', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (39, 'Beazley-La Paz', 'N37', 'N37', 20);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (40, 'Desc. PC Pico Truncado II', 'S04a', 'S04a', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (41, 'Desc. PC Manantiales Behr II', 'S06a', 'S06a', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (42, 'Desc. PC Dolavon', 'S09a', 'S09a', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (43, 'Desc. PC San Antonio Oeste II', 'S16a', 'S16a', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (44, 'Desc. PC Saturno', 'S31a', 'S31a', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (45, 'Desc. PC Magallanes', 'S39', 'S39', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (46, 'Desc. PC Magallanes', 'S40', 'S40', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (47, 'Desc. PC Garayalde', 'S42', 'S42', 21);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (102, 'Apoyo a Gaso.', 'APG', 'Apoyo Gaso.', 100);
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, SUBPROJECT_TYPE)
+ Values
+   (100, 'Gasoducto Sur Peruano', 'GSP', 'GSP', 'Planta');
+Insert into ROCA.PROJECTS
+   (PROJECT_ID, NAME, CODE, SHORT_NAME, PARENT_ID)
+ Values
+   (101, 'PC Ticumpinia', 'PCT', 'PC Ticumpinia', 100);
 COMMIT;
 
 
 
 
+
+
 Insert into ROCA.USER_SPECIALTY
    (USER_ID, SPECIALTY_ID)
  Values
-   (1, 1);
-Insert into ROCA.USER_SPECIALTY
-   (USER_ID, SPECIALTY_ID)
- Values
-   (1, 2);
+   (61, 1);
 Insert into ROCA.USER_SPECIALTY
    (USER_ID, SPECIALTY_ID)
  Values
@@ -574,7 +820,7 @@ Insert into ROCA.USER_SPECIALTY
 Insert into ROCA.USER_SPECIALTY
    (USER_ID, SPECIALTY_ID)
  Values
-   (45, 7);
+   (45, 6);
 Insert into ROCA.USER_SPECIALTY
    (USER_ID, SPECIALTY_ID)
  Values
@@ -607,22 +853,63 @@ Insert into ROCA.USER_SPECIALTY
    (USER_ID, SPECIALTY_ID)
  Values
    (53, 8);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (54, 1);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (55, 7);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (56, 1);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (57, 4);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (58, 2);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (59, 2);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (60, 6);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (62, 6);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (63, 2);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (64, 4);
+Insert into ROCA.USER_SPECIALTY
+   (USER_ID, SPECIALTY_ID)
+ Values
+   (65, 6);
 COMMIT;
 
 
 
+
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (9, 'caTarea', 'Cursos', 'Cursos');
+   (1, 'mlPurpose', 'PA', 'PARA APROBACION');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (10, 'caTarea', 'Vacaciones', 'Vacaciones');
-Insert into ROCA.LOOKUPS
-   (LOOKUP_ID, TYPE, CODE, VALUE)
- Values
-   (11, 'caTarea', 'Licencia', 'Licencia');
+   (2, 'mlPurpose', 'PC', 'PARA CUCAMONIZACION');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
@@ -634,7 +921,7 @@ Insert into ROCA.LOOKUPS
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (5, 'caTarea', 'NoEmisibles', 'Elaborados no emisibles (Maquetas / Informes / reportes)');
+   (5, 'caTarea', 'NoEmisibles', 'Elaborados no emisibles');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
@@ -642,19 +929,47 @@ Insert into ROCA.LOOKUPS
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (7, 'caTarea', 'Viaje', 'Viaje (Apoyo al proyecto fuera de oficina)');
+   (7, 'caTareaObsoleto', 'Viajes', 'Viajes');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (8, 'caTarea', 'Soporte', 'Soporte (Otras Areas / OEP)');
+   (8, 'caTarea', 'Soporte', 'Soporte (Apoyo a otras disciplinas)');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (1, 'mlPurpose', 'PA', 'PARA APROBACION');
+   (9, 'caTarea', 'Capacitaciones', 'Capacitaciones, Presentaciones, Congresos');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
-   (2, 'mlPurpose', 'PC', 'PARA CUCAMONIZACION');
+   (10, 'caTarea', 'Vacaciones', 'Vacaciones');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (11, 'caTarea', 'Licencia', 'Licencia, Permisos, Feriados');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (12, 'caTarea', 'CAOs', 'CAOs');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (13, 'caTarea', 'OtrosProyectos', 'Apoyo a otros Proyectos');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (14, 'caTareaObsoleto', 'Permisos', 'Gestion de Permisos de Paso/Cruces');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (15, 'caTarea', 'Soporte2', 'Soporte (Apoyo a otras areas)');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (16, 'caTarea', 'Maqueta', 'Maqueta');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (17, 'caTarea', 'Informes', 'Informes y Reportes');
 Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
@@ -827,7 +1142,13 @@ Insert into ROCA.LOOKUPS
    (LOOKUP_ID, TYPE, CODE, VALUE)
  Values
    (126, 'tipoDoc', 'UN', 'UN');
+Insert into ROCA.LOOKUPS
+   (LOOKUP_ID, TYPE, CODE, VALUE)
+ Values
+   (10001, 'caTarea', 'Evaluaciones', 'Actividades Organizacionales (Evaluaciones)');
 COMMIT;
+
+
 
 
 

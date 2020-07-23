@@ -71,6 +71,7 @@ namespace Cno.Roca.Web.RocaSite.Controllers
 
             var suggestList = list.Select(m => new {value = GetPropertyString(m, property)})
                                   .Distinct()
+                                  .Take(50)
                                   .ToArray();
             return Json(suggestList, JsonRequestBehavior.AllowGet);
         }
@@ -116,6 +117,8 @@ namespace Cno.Roca.Web.RocaSite.Controllers
                 materials = materials.Where(m => m.Schedule != null && m.Schedule.ContainsCaseInsensitive(filters.Schedule));
             if (!String.IsNullOrEmpty(filters.PieceMark))
                 materials = materials.Where(m => m.PieceMark != null && m.PieceMark.ContainsCaseInsensitive(filters.PieceMark));
+            if (!String.IsNullOrEmpty(filters.Spool))
+                materials = materials.Where(m => m.Spool != null && m.Spool.ContainsCaseInsensitive(filters.Spool));
 
             return materials;
         }

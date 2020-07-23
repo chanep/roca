@@ -22,7 +22,7 @@ namespace RocaSite
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Home", id = UrlParameter.Optional }
+                defaults: new { controller = "User", action = "Home", id = UrlParameter.Optional }
             );
         }
     }

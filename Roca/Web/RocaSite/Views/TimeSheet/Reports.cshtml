@@ -7,7 +7,9 @@
     <div class="row form-group">
         <div class="btn-group">
             <label class="btn btn-primary" ng-model="Model.Report" btn-radio="'ByDoc'" ng-change="reportChanged()">Por Documento</label>
+            <label class="btn btn-primary" ng-model="Model.Report" btn-radio="'ByDocUser'" ng-change="reportChanged()">Por Doc/Persona</label>
             <label class="btn btn-primary" ng-model="Model.Report" btn-radio="'ByTask'" ng-change="reportChanged()">Por Actividad</label>
+            <label class="btn btn-primary" ng-model="Model.Report" btn-radio="'ByTaskUser'" ng-change="reportChanged()">Por Act/Persona</label>
             <label class="btn btn-primary" ng-model="Model.Report" btn-radio="'BySpecialty'" ng-change="reportChanged()">Por Disciplina</label>
             <label class="btn btn-primary" ng-model="Model.Report" btn-radio="'ByProject'" ng-change="reportChanged()">Por Proyecto</label>
         </div>
@@ -36,16 +38,47 @@
                 </p>
             </div>
     </div>
-    <div class="row">
-        <div id="grid" style="width: 900px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions">
+    <div class="row" ng-switch="Model.Report">
+        <div ng-switch-when="ByDoc">
+            <div class="grid" style="width: 1030px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions.ByDoc">
+            </div>
+            <div class="exportLinkContainer" style="width: 1030px;">            
+            </div>
         </div>
-        <div class="exportLinkContainer" style="width: 900px;">
-            
+        <div  ng-switch-when="ByDocUser">
+            <div class="grid"  style="width: 1030px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions.ByDocUser">
+            </div>
+            <div class="exportLinkContainer" style="width: 1030px;">            
+            </div>
+        </div>
+        <div  ng-switch-when="ByTask">
+            <div class="grid"  style="width: 1030px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions.ByTask">
+            </div>
+            <div class="exportLinkContainer" style="width: 1030px;">            
+            </div>
+        </div>
+        <div  ng-switch-when="ByTaskUser">
+            <div class="grid" style="width: 1030px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions.ByTaskUser">
+            </div>
+            <div class="exportLinkContainer" style="width: 1030px;">            
+            </div>
+        </div>
+        <div  ng-switch-when="BySpecialty">
+            <div class="grid" style="width: 1030px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions.BySpecialty">
+            </div>
+            <div class="exportLinkContainer" style="width: 1030px;">            
+            </div>
+        </div>
+        <div  ng-switch-when="ByProject">
+            <div class="grid" style="width: 1030px; height: 500px; border: 1px solid rgb(212,212,212);" ng-grid="Model.gridOptions.ByProject">
+            </div>
+            <div class="exportLinkContainer" style="width: 1030px;">            
+            </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
     (function () {
-        Roca.fillParentHeight('grid', '70%');
+        Roca.fillParentHeight('.grid', '67%');
         })();
 </script>

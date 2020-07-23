@@ -1,0 +1,66 @@
+﻿<style>
+    .docType {
+        width: 80px;
+    }
+    .select {
+        width: 150px;
+    }
+    .docNumber {
+        width: 300px;
+    }
+    .docTitle {
+        width: 500px;
+    }   
+</style>
+
+<form name="docForm" novalidate>
+    <div class="container-fluid">
+                       
+        <div class="form-group docNumber" ng-class="{'has-error': docForm.DocNumber.$invalid}">       
+            <label class="control-label small" for="DocNumber">Codigo de Documento</label>
+            <input class="form-control input-sm" ng-model="Model.Doc.DocNumber" name="DocNumber"
+                   data-typeahead="term.value for term in getAutosuggestDoc() | filter:$viewValue"
+                   data-typeahead-on-select="docSelected()" ng-change="docChanged()" data-typeahead-wait-ms="250" required/>
+        </div> 
+       
+        <div class="form-group select">       
+            <label class="control-label small" for="Specialty">Especialidad</label>
+            <select class="form-control input-sm" name="Specialty" ie-select-fix ng-model="Model.Doc.SpecialtyId" ng-disabled="true" required
+                    ng-options="sp.Id as sp.Name for sp in Model.Options.Specialties" >
+            </select>
+        </div>
+        
+        <div class="form-group select">       
+            <label class="control-label small" for="Specialty">Proyecto</label>
+            <select class="form-control input-sm" name="Project" ie-select-fix ng-model="Model.Doc.Project.ParentId" ng-disabled="true" required
+                    ng-options="p.Id as p.ShortName for p in Model.Options.Projects" required>
+            </select>
+        </div>
+        
+        <div class="form-group select" ng-if="subprojectVisible()">       
+            <label class="control-label small" for="Subproject">Subproyecto</label>
+            <select class="form-control input-sm" name="Subproject" ie-select-fix ng-model="Model.Doc.ProjectId" ng-disabled="true" required
+                    ng-options="p.Id as p.ShortName for p in Model.Subprojects">
+            </select>
+        </div>
+        
+        <div class="form-group docType">       
+            <label class="control-label small" for="Type">Tipo</label>
+            <select class="form-control input-sm" name="Type" ie-select-fix ng-model="Model.Doc.TypeId" ng-disabled="true" required
+                    ng-options="t.Id as t.Code for t in Model.Options.DocTypes | orderBy:'Code'">
+            </select>
+        </div>
+        
+        <div class="form-group docTitle" ng-class="{'has-error': docForm.Title.$invalid}">       
+            <label class="control-label small" for="Title">Titulo</label>
+            <input class="form-control input-sm" ng-model="Model.Doc.Title" name="Title" required/>
+        </div>  
+        
+        <div>
+            <button type="button" ng-click="submit()"class="btn btn-primary" ng-disabled="docForm.$invalid">Modificar Titulo</button> 
+            <p style="color: green; font-weight: bold;" ng-show="Model.Saved && !docForm.$dirty">Modificado!</p>  
+        </div>         
+
+    </div>
+
+</form>

@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using Cno.Roca.BackEnd.Materials.BL.Filters;
 using Cno.Roca.BackEnd.Materials.Data.TimeSheets;
 using Cno.Roca.BackEnd.Materials.Data.Users;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -163,6 +164,31 @@ namespace Cno.Roca.BackEnd.Tests.Materials.Services
                 //tx.Complete();
             }
         }
+
+        [TestMethod]
+        public void GetAllDocItemsTest()
+        {
+            using (var tx = new TransactionScope())
+            {
+                using (var roca = CreateRocaUow())
+                {
+                    var rocaService = CreateRocaService(roca);
+                    var toDate = DateTime.Now.Date;
+                    var fromDate = toDate.AddDays(-6);
+                    var filter = new TimeSheetItemFilter()
+                    {
+                        FromDate = fromDate,
+                        ToDate = toDate
+                    };
+                    var items = rocaService.TimeSheetService.GetAllDocItems(filter).ToList();
+                    Assert.IsNotNull(items[0].TimeSheet.User.FullName);
+                }
+
+
+                //tx.Complete();
+            }
+        }
+
 
         [TestMethod]
         public void GetAllUserLastTest()
